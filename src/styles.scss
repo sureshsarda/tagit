@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+body {
+    font-family: 'Slabo 27px', serif;
+}
+
+/* otherwise they hang from the top */
+mat-icon {
+    vertical-align: middle;
+}

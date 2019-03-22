@@ -1,0 +1,5 @@
+<div class="container">
+
+    <h1>dexterous.me</h1>
+    <app-item class="item" *ngFor="let it of items" [item]=it (itemUpdated)="onItemModified($event)"></app-item>
+</div>

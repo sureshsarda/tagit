@@ -1,0 +1,47 @@
+.container {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
+.check-icon {
+    border: 1px solid #848f99;
+    border-radius: 100%;
+    padding: 3px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #848f99;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.check-icon:hover {
+    color: #14aaf5;
+    border-color: #14aaf5;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    font-size: 21px;
+    width: 100%;
+}
+
+.container:hover {
+    background-color: #f6f8f9;
+}
+
+textarea {
+    border: none;
+    font-size: inherit;
+    height: 24px;
+    background: transparent;
+    resize: none;
+    width: 100%;
+    overflow: hidden;
+    outline: none;
+    white-space: nowrap;
+}
