@@ -1,10 +1,6 @@
 <div class="container">
-    <mat-icon class="check-icon">check</mat-icon>
+    <mat-icon class="check-icon" (click)="onCheckClick()">check</mat-icon>
     <div class="content" data-id={{item.id}}>
-        <textarea 
-            #name
-            (blur)="onTextAreaBlur($event)" 
-            (focus)="onTextAreaFocus($event)"
-            (keyup.enter)="onEnter(name.value, $event)">{{ item.name }}</textarea>
+        <input #name (keyup.enter)="onEnter(name.value)" value={{item.name}}>
     </div>
 </div>

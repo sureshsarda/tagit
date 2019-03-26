@@ -34,12 +34,11 @@
     background-color: #f6f8f9;
 }
 
-textarea {
+input {
     border: none;
     font-size: inherit;
     height: 24px;
     background: transparent;
-    resize: none;
     width: 100%;
     overflow: hidden;
     outline: none;

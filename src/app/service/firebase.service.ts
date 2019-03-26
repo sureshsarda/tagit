@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import * as firebase from "firebase";
 import 'firebase/firestore'
 import { Observable, from } from 'rxjs';
-import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable({
     providedIn: 'root'
@@ -23,49 +22,63 @@ export class FirebaseService {
         return from(itemsSnapshot.then(
             (result) => {
                 console.log(result.docs);
-                const response = result.docs.map(it => ({
-                    id: it.id,
-                    name: it.data().name,
-                    createdAt: it.data().createdAt
-                })
-                );
+                const response = result.docs.map(it => {
+                    const data = it.data();
+                    data['id'] = it.id;
+                    return data as Item;
+                });
                 return response;
             }
         ));
     }
 
-    addItem(param: { name: string }): Observable<Item> {
-        const createdAt = new Date();
-        return from(this.itemsRef.add({
-            name,
-            createdAt
-        }).then(
+    addItem(item: Item): Observable<Item> {
+        item.createdAt = new Date();
+        item.updatedAt = new Date();
+
+        return from(this.itemsRef.add(item).then(
             (docReference: firebase.firestore.DocumentReference) => {
-                const item: Item = {
-                    id: docReference.id,
-                    name,
-                    createdAt
-                }
+                item.id = docReference.id;
                 return item;
             }
-        ))
+        ));
     }
 
     updateItem(param: Item): Observable<Item> {
         const updatedAt = new Date();
         return from(this.itemsRef.doc(param.id).set({
             name: param.name,
-            archivedAt: updatedAt
+            updatedAt
         }).then(
             docReference => {
-                const item: Item = {
-                    id: param.id,
-                    archivedAt: updatedAt,
-                    createdAt: param.createdAt,
-                    name: param.name
-                }
-                return item;
+                return param;
             }
-        ))
+        ));
+    }
+
+    deleteItem(param: Item): Observable<Item> {
+        return this._updateField('deletedAt', new Date(), param);
+    }
+
+    archiveItem(param: Item): Observable<Item> {
+        return this._updateField('archivedAt', new Date(), param);
+    }
+
+    private _updateField(fieldname: string, value: object, item: Item): Observable<Item> {
+        const newObject: Item = { ...item };
+        const id = item.id;
+        delete newObject.id;
+        // Object.keys(item).forEach(key => {
+        //     if (key !== 'id') {
+        //         newObject[key] = item[key];
+        //     }
+        // });
+        newObject[fieldname] = value;
+
+        return from(this.itemsRef.doc(id).set(newObject).then(
+            docReference => {
+                newObject['id'] = id;
+                return newObject;
+            }));
     }
 }

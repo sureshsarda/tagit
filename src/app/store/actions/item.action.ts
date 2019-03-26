@@ -9,16 +9,20 @@ export enum ItemAction {
     ItemUpdated = 'Action Item Updated',
 
     DeleteItem = 'Action Item Delete',
+    ItemDeleted = 'Action Item Deleted',
+
     FetchItem = 'Action Item Fetch',
     FetchItemSuccess = 'Action Item Fetch Success',
-    ArchiveItem = 'Action Item Archive'
+
+    ArchiveItem = 'Action Item Archive',
+    ItemArchived = 'Action Item Archived'
 }
 
 export class AddItem implements Action {
 
     readonly type: string = ItemAction.AddItem;
 
-    constructor(public payload: { name: string }) { }
+    constructor(public payload: Item) { }
 
 }
 
@@ -38,9 +42,17 @@ export class UpdateItem implements Action {
 
 export class DeleteItem implements Action {
 
-    readonly type: string = ItemAction.AddItem;
+    readonly type: string = ItemAction.DeleteItem;
 
-    constructor(public payload: { id: string }) { }
+    constructor(public payload: Item) { }
+
+}
+
+export class ItemDeleted implements Action {
+
+    readonly type: string = ItemAction.ItemDeleted;
+
+    constructor(public payload: Item) { }
 
 }
 
@@ -48,8 +60,14 @@ export class ArchiveItem implements Action {
 
     readonly type: string = ItemAction.ArchiveItem;
 
-    constructor(public payload: { id: string }) { }
+    constructor(public payload: Item) { }
 
+}
+
+export class ItemArchived implements Action {
+    readonly type: string = ItemAction.ItemArchived;
+
+    constructor(public payload: Item) { }
 }
 
 export class FetchItem implements Action {

@@ -6,6 +6,18 @@ body {
 }
 
 /* otherwise they hang from the top */
+
 mat-icon {
     vertical-align: middle;
+}
+
+.button {
+    padding: 10px;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+input {
+    font-family: 'Slabo 27px', serif;
+    font-size: 21px;
 }

@@ -11,27 +11,23 @@ export class ItemComponent implements OnInit {
 
     @Input() item: Item;
 
-    @Output() itemUpdated: EventEmitter<Item> = new EventEmitter();
+    @Output() update: EventEmitter<Item> = new EventEmitter();
+
+    @Output() done: EventEmitter<Item> = new EventEmitter();
+
+    @Output() delete: EventEmitter<Item> = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() {
     }
-
-    onTextAreaBlur(element) {
-        console.log(element.target);
-        // element.target.selectionEnd = 0
-        element.target.setSelectionRange(0, 0);
+    onEnter(value: string) {
+        this.item.name = value.trim();
+        this.update.emit(this.item);
     }
 
-    onTextAreaFocus(element) {
-        element.target.selectionEnd = 0;
-    }
-
-    onEnter(value: string, event) {
-        this.item.name = value.split('\n').join(' ');
-        event.target.value = this.item.name;
-        this.itemUpdated.emit(this.item);
+    onCheckClick() {
+        this.done.emit(this.item);
     }
 
 }

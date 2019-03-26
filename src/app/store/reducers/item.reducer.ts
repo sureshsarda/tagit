@@ -1,39 +1,28 @@
 import { ItemState } from '..';
-import { ItemAction, UpdateItem } from '../actions';
+import { ItemAction } from '../actions';
 import { Item } from './../../models';
 
-export function reducer(state: ItemState = { items: [] }, action: { type: string, payload: Item[] }): ItemState {
+export function reducer(state: ItemState, action: { type: string, payload: Item[] | Item }): ItemState {
     switch (action.type) {
         case ItemAction.FetchItemSuccess:
-            console.log(action);
-            return { items: action.payload };
+            const newState: ItemState = { entities: {} };
+            const items = action.payload as Item[];
+
+            items.forEach(it => {
+                newState.entities[it.id] = it;
+            });
+            return newState;
 
         case ItemAction.ItemAdded:
-            if (action.payload.length > 0) {
-                state.items.push(action.payload[0]);
-            }
+        case ItemAction.ItemUpdated:
+        case ItemAction.ItemArchived:
+        case ItemAction.ItemDeleted:
+            const item = action.payload as Item;
+            state.entities[item.id] = item;
             return { ...state };
 
-        case ItemAction.ItemUpdated:
-
-            if (action.payload.length > 0) {
-                const updatedItem = action.payload[0];
-                state.items.forEach(it => {
-                    if (it.id === updatedItem.id) {
-                        it.name = updatedItem.name;
-                    }
-                });
-            }
-            return state;
-
         default:
-            console.log(action)
-            console.log('Default Action')
-            return {
-                items: [
-                    { name: '', createdAt: new Date() }
-                ]
-            };
+            return state;
     }
 }
 

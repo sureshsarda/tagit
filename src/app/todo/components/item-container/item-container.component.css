@@ -10,3 +10,7 @@
     width: 100%;
     border-bottom: 1px solid #CCC;
 }
+
+.archived {
+    background: #c1e1f1;
+}

@@ -9,21 +9,25 @@ export interface AppStore {
 }
 
 export interface ItemState {
-    items: Item[];
+    entities: { [id: string]: Item };
 }
 
 export const initialState: AppStore = {
-    items: { items: [] }
+    items: { entities: {} }
 };
 
 export const applicationReducer: ActionReducerMap<AppStore> = {
     items: itemReducers.reducer,
 };
 
-export const getItemsState = (state: AppStore) => state.items.items;
+export const getItemsState = (state: AppStore) => state.items;
+
 export const getItems = createSelector(
     getItemsState,
-    (state: Item[]) => {
-        return state
+    (state: ItemState) => {
+        if (state && state.entities) {
+            return Object.values(state.entities);
+        }
+        return [];
     }
 )

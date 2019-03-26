@@ -1,5 +1,19 @@
 <div class="container">
 
     <h1>dexterous.me</h1>
-    <app-item class="item" *ngFor="let it of items" [item]=it (itemUpdated)="onItemModified($event)"></app-item>
+    <app-item class="item" [ngClass]="{archived: it.archivedAt}" *ngFor="let it of items" [item]=it (update)="onItemModified($event)"
+        (done)="onItemArchive($event)"></app-item>
+
+    <app-item class="item" [item]=newItem (update)="onItemAdded($event)"></app-item>
+
+    <div (click)="showAll = !showAll" class="button">
+        <div *ngIf="showAll">
+            Show Active
+        </div>
+
+        <div *ngIf="!showAll">
+            Show All Items
+        </div>
+
+    </div>
 </div>
