@@ -1,5 +1,6 @@
+import { element } from 'protractor';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Item } from 'src/app/models';
+import { Item, Tag } from 'src/app/models';
 import { } from 'events';
 
 @Component({
@@ -17,6 +18,8 @@ export class ItemComponent implements OnInit {
 
     @Output() delete: EventEmitter<Item> = new EventEmitter();
 
+    tags = ['today', 'every-monday'];
+
     constructor() { }
 
     ngOnInit() {
@@ -28,6 +31,29 @@ export class ItemComponent implements OnInit {
 
     onCheckClick() {
         this.done.emit(this.item);
+    }
+
+    onTagAdded(tag: Tag) {
+        if (tag.id) {
+            // tag is already present in database, only added to this task
+        } else {
+            // tag is not present in database, we have to create it as well
+        }
+
+        if (!this.item.tags) {
+            this.item.tags = []
+        }
+        this.item.tags.push(tag);
+    }
+
+    onTagRemoved(tag: Tag) {
+        this.item.tags = this.item.tags.filter(it => it.id !== tag.id);
+    }
+
+    onNewTagAdded(element: HTMLInputElement) {
+        const value = element.value;
+        this.tags.push(value.trim());
+        element.value = '';
     }
 
 }

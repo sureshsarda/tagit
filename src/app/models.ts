@@ -1,3 +1,8 @@
+export interface Tag {
+    id?: string;
+    name: string;
+}
+
 export interface Item {
     id?: string;
     name: string;
@@ -9,6 +14,8 @@ export interface Item {
 
     next?: Item;
     previous?: Item;
+
+    tags?: Tag[];
 }
 
 export interface ItemCollection {

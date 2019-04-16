@@ -1,6 +1,11 @@
-<div class="container">
-    <mat-icon class="check-icon" (click)="onCheckClick()">check</mat-icon>
-    <div class="content" data-id={{item.id}}>
-        <input #name (keyup.enter)="onEnter(name.value)" value={{item.name}}>
+<div>
+    <div class="container">
+        <mat-icon class="check-icon" (click)="onCheckClick()">check</mat-icon>
+        <div class="content" data-id={{item.id}}>
+            <input #name (keyup.enter)="onEnter(name.value)" value={{item.name}}>
+        </div>
+    </div>
+    <div class="tag-create">
+        <app-tag [tags]=item.tags (added)="onTagAdded($event)" (removed)="onTagRemoved($event)"></app-tag>
     </div>
 </div>
