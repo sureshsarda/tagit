@@ -1,9 +1,15 @@
-import { Item } from './../models';
+import { Item, Tag } from './../models';
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase";
 import 'firebase/firestore'
-import { Observable, from } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
+
+class ResultStub {
+    status: string;
+    data: object | [];
+}
 @Injectable({
     providedIn: 'root'
 })
@@ -12,73 +18,67 @@ export class FirebaseService {
 
     itemsRef: firebase.firestore.CollectionReference;
 
-    constructor() {
+    userId = '1';
+
+    constructor(private http: HttpClient) {
         this.itemsRef = this.db.collection('users').doc('suresh').collection('items');
     }
 
-    getItems(): Observable<Item[]> {
-        const itemsSnapshot = this.itemsRef.get();
+    private get url() {
+        return 'http://127.0.0.1:8080/user/' + this.userId;
+    }
 
-        return from(itemsSnapshot.then(
-            (result) => {
-                console.log(result.docs);
-                const response = result.docs.map(it => {
-                    const data = it.data();
-                    data['id'] = it.id;
-                    return data as Item;
-                });
-                return response;
+    private makeRequest<T>(url): Promise<T> {
+        return this.http.get(url).toPromise().then(
+            (result: ResultStub) => {
+                console.log(result);
+                return (result.data as any) as T;
+            });
+    }
+
+    getItems(payload?: any): Promise<Item[]> {
+        console.log('Fetching items in service...');
+        return this.makeRequest<Item[]>('http://127.0.0.1:8080/user/' + this.userId + '/task');
+    }
+
+    getTags(payload?: any): Promise<Tag[]> {
+        console.log('Fetching items in service...');
+        return this.makeRequest<Item[]>('http://127.0.0.1:8080/user/' + this.userId + '/tag');
+    }
+
+    addItem(item: Item): Promise<Item> {
+        return this.http.post(this.url + '/task', {
+            description: item.description,
+        }).toPromise().then(
+            (result: ResultStub) => {
+                return result.data as Item;
             }
-        ));
+        );
     }
 
-    addItem(item: Item): Observable<Item> {
-        item.createdAt = new Date();
-        item.updatedAt = new Date();
-
-        return from(this.itemsRef.add(item).then(
-            (docReference: firebase.firestore.DocumentReference) => {
-                item.id = docReference.id;
-                return item;
+    updateItem(param: Item): Promise<Item> {
+        const updatable = ['duedate', 'completed_at', 'deleted_at', 'description'];
+        const payload = {}
+        Object.keys(param).forEach(k => {
+            if (updatable.indexOf(k) > -1) {
+                payload[k] = param[k];
             }
-        ));
+        });
+
+        return this.http.patch(this.url + '/task/' + param.id, payload).toPromise()
+            .then((result: ResultStub) => {
+                return result.data as Item;
+            });
     }
 
-    updateItem(param: Item): Observable<Item> {
-        const updatedAt = new Date();
-        return from(this.itemsRef.doc(param.id).set({
-            name: param.name,
-            updatedAt
-        }).then(
-            docReference => {
-                return param;
-            }
-        ));
+
+    deleteItem(param: Item): Promise<Item> {
+        param.deleted_at = new Date();
+        return this.updateItem(param);
     }
 
-    deleteItem(param: Item): Observable<Item> {
-        return this._updateField('deletedAt', new Date(), param);
-    }
-
-    archiveItem(param: Item): Observable<Item> {
-        return this._updateField('archivedAt', new Date(), param);
-    }
-
-    private _updateField(fieldname: string, value: object, item: Item): Observable<Item> {
-        const newObject: Item = { ...item };
-        const id = item.id;
-        delete newObject.id;
-        // Object.keys(item).forEach(key => {
-        //     if (key !== 'id') {
-        //         newObject[key] = item[key];
-        //     }
-        // });
-        newObject[fieldname] = value;
-
-        return from(this.itemsRef.doc(id).set(newObject).then(
-            docReference => {
-                newObject['id'] = id;
-                return newObject;
-            }));
+    archiveItem(param: Item): Promise<Item> {
+        param.completed_at = new Date();
+        return this.updateItem(param);
     }
 }

@@ -1,78 +1,96 @@
-import { Action } from '@ngrx/store';
+import { Item } from './../../models';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { FirebaseService } from './../../service/firebase.service';
-import { AddItem, ItemAction } from './../actions';
-import { ArchiveItem, DeleteItem, FetchItemSuccess, UpdateItem, FetchItem } from './../actions';
+import {
+    AddItem,
+    ArchiveItem,
+    DeleteItem,
+    FetchItem,
+    FetchItemSuccess,
+    ItemAdded,
+    ItemArchived,
+    ItemDeleted,
+    ItemUpdated,
+    UpdateItem,
+    FetchTag,
+    FetchTagSuccess
+} from './../actions';
 
 
 @Injectable()
 export class ItemEffects {
 
     @Effect()
-    fetchItems$ = this.actions$.pipe(
-        ofType(ItemAction.FetchItem),
-        mergeMap((it: FetchItem) => {
-            return this.itemService.getItems().pipe(
-                map(result => {
-                    console.log(result);
-                    return new FetchItemSuccess(result)
-                })
-            );
-        })
-    );
-
-    @Effect()
     addItem$ = this.actions$.pipe(
-        ofType(ItemAction.AddItem),
+        ofType(AddItem.type),
         mergeMap((it: AddItem) => {
-            return this.itemService.addItem(it.payload).pipe(
-                map(result => ({ type: ItemAction.ItemAdded, payload: result }))
+            return this.itemService.addItem(it.payload).then(
+                (result: Item) => {
+                    return new ItemAdded(result);
+                }
             );
         })
     );
 
     @Effect()
     updateItem$ = this.actions$.pipe(
-        ofType(ItemAction.UpdateItem),
+        ofType(UpdateItem.type),
         mergeMap((it: UpdateItem) => {
-            return this.itemService.updateItem(it.payload).pipe(
-                map(result => ({ type: ItemAction.ItemUpdated, payload: result }))
-            )
+            return this.itemService.updateItem(it.payload).then(
+                (result: Item) => {
+                    return new ItemUpdated(result);
+                }
+            );
         })
-    )
+    );
 
     @Effect()
     deleteItem$ = this.actions$.pipe(
-        ofType(ItemAction.DeleteItem),
+        ofType(DeleteItem.type),
         mergeMap((it: DeleteItem) => {
-            return this.itemService.deleteItem(it.payload).pipe(
-                map(result => ({ type: ItemAction.ItemDeleted, payload: result }))
-            )
+            return this.itemService.deleteItem(it.payload).then(
+                (result: Item) => {
+                    return new ItemDeleted(result);
+                }
+            );
         })
-    )
+    );
 
     @Effect()
     archiveItem$ = this.actions$.pipe(
-        ofType(ItemAction.ArchiveItem),
+        ofType(ArchiveItem.type),
         mergeMap((it: ArchiveItem) => {
-            return this.itemService.archiveItem(it.payload).pipe(
-                map(result => ({ type: ItemAction.ItemArchived, payload: result }))
-            )
+            return this.itemService.archiveItem(it.payload).then(
+                (result: Item) => {
+                    return new ItemArchived(result);
+                }
+            );
         })
-    )
+    );
 
-    crudAction(filterOn: Action, call, mapTo) {
-        this.actions$.pipe(
-            ofType(filterOn.type),
-            mergeMap((filterOn) => {
-                return call(filterOn['payload']).pipe(
-                    map(result => ({ type: mapTo, payload: result }))
-                )
-            })
-        )
-    };
+
+    @Effect()
+    fetchItems$ = this.actions$.pipe(
+        ofType(FetchItem.type),
+        mergeMap((it: FetchItem) => {
+            return this.itemService.getItems(it.payload).then(result => {
+                return new FetchItemSuccess(result);
+            });
+        })
+    );
+
+    @Effect()
+    fetchTags$ = this.actions$.pipe(
+        ofType(FetchTag.type),
+        mergeMap((it: FetchTag) => {
+            return this.itemService.getTags(it.payload).then(result => {
+                return new FetchTagSuccess(result);
+            });
+        })
+    );
+
 
 
     constructor(

@@ -6,23 +6,6 @@
     box-sizing: border-box;
 }
 
-.check-icon {
-    border: 1px solid #848f99;
-    border-radius: 100%;
-    padding: 3px;
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    color: #848f99;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.check-icon:hover {
-    color: #14aaf5;
-    border-color: #14aaf5;
-}
-
 .content {
     display: flex;
     justify-content: center;
@@ -43,4 +26,24 @@ input {
     overflow: hidden;
     outline: none;
     white-space: nowrap;
+}
+
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.action h4 {
+    margin: 0px;
+    margin-right: 10px;
+}
+
+.container:hover .action {
+    display: flex;
 }

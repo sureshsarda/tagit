@@ -2,6 +2,11 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
 
+
+$primary: #1565c0;
+$gray: #f0f0f0;
+// $accent: map-get($theme, accent);
+
 body {
     font-family: 'Slabo 27px', serif;
 }
@@ -10,6 +15,11 @@ body {
 
 mat-icon {
     vertical-align: middle;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
 }
 
 .button {
@@ -21,4 +31,54 @@ mat-icon {
 input {
     font-family: 'Slabo 27px', serif;
     font-size: 21px;
+}
+
+.round-icon {
+    border: 1px solid #848f99;
+    border-radius: 100%;
+    padding: 3px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #848f99;
+    margin-right: 10px;
+    cursor: pointer;
+
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.round-icon.small {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+}
+
+.round-icon.medium {
+    width: 18px;
+    height: 18px;
+}
+
+.round-icon.noborder {
+    border: 0px solid #848f99;
+}
+
+.round-icon:hover {
+    // color: #14aaf5;
+    color: $primary;
+    border-color: $primary;
+}
+
+.full-width {
+    width: 100%;
+}
+
+h4 {
+    color: rgb(21, 101, 192);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    line-height: 1;
 }

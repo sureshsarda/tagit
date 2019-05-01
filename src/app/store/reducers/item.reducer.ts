@@ -1,10 +1,11 @@
-import { ItemState } from '..';
-import { ItemAction } from '../actions';
-import { Item } from './../../models';
+import { FetchTagSuccess } from './../actions/tag.action';
+import { ItemState, TagState } from '..';
+import { Item, Tag } from './../../models';
+import { FetchItemSuccess, ItemAdded, ItemUpdated, ItemArchived, ItemDeleted } from './../actions/item.action';
 
 export function reducer(state: ItemState, action: { type: string, payload: Item[] | Item }): ItemState {
     switch (action.type) {
-        case ItemAction.FetchItemSuccess:
+        case FetchItemSuccess.type:
             const newState: ItemState = { entities: {} };
             const items = action.payload as Item[];
 
@@ -13,10 +14,10 @@ export function reducer(state: ItemState, action: { type: string, payload: Item[
             });
             return newState;
 
-        case ItemAction.ItemAdded:
-        case ItemAction.ItemUpdated:
-        case ItemAction.ItemArchived:
-        case ItemAction.ItemDeleted:
+        case ItemAdded.type:
+        case ItemUpdated.type:
+        case ItemArchived.type:
+        case ItemDeleted.type:
             const item = action.payload as Item;
             state.entities[item.id] = item;
             return { ...state };
@@ -25,4 +26,29 @@ export function reducer(state: ItemState, action: { type: string, payload: Item[
             return state;
     }
 }
+
+export function tagReducer(state: TagState, action: { type: string, payload: Tag[] | Tag }): TagState {
+    switch (action.type) {
+        case FetchTagSuccess.type:
+            const newState: TagState = { entities: {} };
+            const tags = action.payload as Tag[];
+
+            tags.forEach(it => {
+                newState.entities[it.id] = it;
+            });
+            return newState;
+
+        // case ItemAdded.type:
+        // case ItemUpdated.type:
+        // case ItemArchived.type:
+        // case ItemDeleted.type:
+        //     const item = action.payload as Item;
+        //     state.entities[item.id] = item;
+        //     return { ...state };
+
+        default:
+            return state;
+    }
+}
+
 

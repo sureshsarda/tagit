@@ -1,7 +1,6 @@
-import { element } from 'protractor';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Item, Tag } from 'src/app/models';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { } from 'events';
+import { Item, Tag } from 'src/app/models';
 
 @Component({
     selector: 'app-item',
@@ -12,20 +11,22 @@ export class ItemComponent implements OnInit {
 
     @Input() item: Item;
 
+    @Input() hideSecondaryBar: false;
+
     @Output() update: EventEmitter<Item> = new EventEmitter();
 
     @Output() done: EventEmitter<Item> = new EventEmitter();
 
     @Output() delete: EventEmitter<Item> = new EventEmitter();
 
-    tags = ['today', 'every-monday'];
+    newDueDate: Date = undefined;
 
     constructor() { }
 
     ngOnInit() {
     }
     onEnter(value: string) {
-        this.item.name = value.trim();
+        this.item.description = value.trim();
         this.update.emit(this.item);
     }
 
@@ -52,8 +53,20 @@ export class ItemComponent implements OnInit {
 
     onNewTagAdded(element: HTMLInputElement) {
         const value = element.value;
-        this.tags.push(value.trim());
         element.value = '';
+    }
+
+    onDatePickerClosed() {
+        if (this.newDueDate !== undefined && this.newDueDate != this.item.duedate) {
+            console.log(`Duedate changed. Old was ${this.item.duedate}, new is: ${this.newDueDate}`);
+            this.item.duedate = this.newDueDate;
+
+            this.update.emit(this.item);
+        }
+    }
+
+    onDelete() {
+        this.delete.emit(this.item);
     }
 
 }

@@ -1,19 +1,54 @@
-<div class="container">
+<div *ngIf="!pomodoroOn" class="container">
 
     <h1>dexterous.me</h1>
-    <app-item class="item" [ngClass]="{archived: it.archivedAt}" *ngFor="let it of items" [item]=it (update)="onItemModified($event)"
-        (done)="onItemArchive($event)"></app-item>
+    <div class="content">
+        <div class="filter">
+            <div class="filter-category" (click)="onShowAll()">
+                <h3>Show All</h3>
+            </div>
+            <div class="filter-category" (click)="onResetFilters()">
+                <h3>Show Active</h3>
+            </div>
+            <div class="filter-category">
+                <h3>Due Date</h3>
+                <div class="filter-item">
+                    Today
+                </div>
+                <div class="filter-item">
+                    Tomorrow
+                </div>
+                <div class="filter-item">
+                    This Week
+                </div>
+                <div class="filter-item">
+                    Later
+                </div>
+            </div>
+            <div class="filter-category">
+                <h3>Tag</h3>
+                <div class="tag-filter filter-item" *ngFor="let t of tags$ | async"
+                    [ngStyle]="{'border-color': t.color}">
+                    <div (click)="onAddTagFilter(t)">{{t.description}}</div>
+                    <div *ngIf="view.tagFilters.has(t.id)" (click)="onRemoveTagFilter(t)">
+                        <mat-icon class="round-icon small noborder">clear</mat-icon>
+                    </div>
+                </div>
+            </div>
 
-    <app-item class="item" [item]=newItem (update)="onItemAdded($event)"></app-item>
-
-    <div (click)="showAll = !showAll" class="button">
-        <div *ngIf="showAll">
-            Show Active
         </div>
+        <div class="item-container">
+            <app-item class="item" [ngClass]="{archived: it.archivedAt}" *ngFor="let it of view.filtered" [item]=it
+                (update)="onItemModified($event)" (done)="onItemArchive($event)" (delete)="onItemDelete($event)">
+            </app-item>
 
-        <div *ngIf="!showAll">
-            Show All Items
+            <app-item class="item" [item]=newItem (update)="onItemAdded($event)" [hideSecondaryBar]=true></app-item>
         </div>
-
+        <div class="post"></div>
     </div>
+
+
+</div>
+
+<div *ngIf="pomodoroOn" class="container">
+    <!-- <app-pomodoro></app-pomodoro> -->
 </div>
