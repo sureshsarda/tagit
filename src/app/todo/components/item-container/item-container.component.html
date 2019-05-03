@@ -37,11 +37,13 @@
 
         </div>
         <div class="item-container">
-            <app-item class="item" [ngClass]="{archived: it.archivedAt}" *ngFor="let it of view.filtered" [item]=it
-                (update)="onItemModified($event)" (done)="onItemArchive($event)" (delete)="onItemDelete($event)">
-            </app-item>
+            <aye-item class="item" [ngClass]="{archived: it.archivedAt}" *ngFor="let it of view.filtered" [item]=it
+                [tagOptions]="_tagOptions" (update)="onItemModified($event)" (done)="onItemArchive($event)"
+                (delete)="onItemDelete($event)">
+            </aye-item>
 
-            <app-item class="item" [item]=newItem (update)="onItemAdded($event)" [hideSecondaryBar]=true></app-item>
+            <aye-item class="item" [item]=newItem (update)="onItemAdded($event)" [hideSecondaryBar]=true
+                [tagOptions]="_tagOptions"></aye-item>
         </div>
         <div class="post"></div>
     </div>

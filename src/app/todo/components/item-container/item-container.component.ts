@@ -19,6 +19,8 @@ class FilteredView {
 
     constructor(items: Item[]) {
         this.allItems = items;
+
+
     }
 
     toggleCompleted() {
@@ -86,6 +88,7 @@ export class ItemContainerComponent implements OnInit {
 
     tags$: Observable<Tag[]>;
     filterTags = new Set();
+    _tagOptions: Tag[];
 
     newItem: Item;
 
@@ -108,6 +111,8 @@ export class ItemContainerComponent implements OnInit {
                 }));
             }
         );
+
+        this.store.select(getTags).subscribe(it => this._tagOptions = it);
 
         this.tags$ = this.store.select(getTags);
     }

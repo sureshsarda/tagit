@@ -1,20 +1,21 @@
-import { COLORS } from './../../../colors.model';
+import { COLORS } from './../../todo/colors.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Tag } from 'src/app/models';
-import { AppStore, getTags } from './../../../../store/index';
+
 
 
 @Component({
-    selector: 'app-tag',
+    selector: 'aye-tag',
     templateUrl: './tag.component.html',
     styleUrls: ['./tag.component.css']
 })
 export class TagComponent implements OnInit {
 
     @Input() tags: Tag[];
+
+    @Input() options: Tag[];
 
     @Output() added: EventEmitter<Tag> = new EventEmitter();
 
@@ -25,29 +26,11 @@ export class TagComponent implements OnInit {
     colors = COLORS;
 
     myControl = new FormControl();
-    options: Tag[] = [];
     filteredOptions: Observable<Tag[]>;
 
-    constructor(
-        private store: Store<AppStore>
-    ) { }
+    constructor() { }
 
-    ngOnInit() {
-        // this.filteredOptions = this.myControl.valueChanges
-        //     .pipe(
-        //         map(value => typeof value === 'string' ? value : value.name),
-        //         tap(val => this.rawValue = val),
-        //         map(value => this._filter(value))
-        //     );
-
-        if (!this.tags) {
-            this.tags = this.options;
-        }
-
-        this.store.select(getTags).subscribe(it => this.options = it);
-
-
-    }
+    ngOnInit() { }
 
     private _filter(value: string): Tag[] {
         const filterValue = value.toLowerCase();

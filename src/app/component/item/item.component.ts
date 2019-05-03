@@ -1,15 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { } from 'events';
 import { Item, Tag } from 'src/app/models';
 
 @Component({
-    selector: 'app-item',
+    selector: 'aye-item',
     templateUrl: './item.component.html',
     styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
 
     @Input() item: Item;
+
+    @Input() tagOptions: Tag[];
 
     @Input() hideSecondaryBar: false;
 
@@ -21,9 +22,11 @@ export class ItemComponent implements OnInit {
 
     newDueDate: Date = undefined;
 
-    constructor() { }
+    constructor(
+    ) { }
 
     ngOnInit() {
+
     }
     onEnter(value: string) {
         this.item.description = value.trim();

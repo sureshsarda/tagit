@@ -6,7 +6,7 @@
                 <input #name (keyup.enter)="onEnter(name.value)" value={{item.description}}>
             </div>
             <div class="bottom-bar" *ngIf="!hideSecondaryBar">
-                <app-tag [tags]=item.tags (added)="onTagAdded($event)" (removed)="onTagRemoved($event)"></app-tag>
+                <aye-tag [tags]=item.tags [options]="tagOptions" (added)="onTagAdded($event)" (removed)="onTagRemoved($event)"></aye-tag>
                 <div class="action">
                     <div *ngIf="item.duedate">
                         <h4>{{item.duedate | date:'MMM d'}}</h4>
