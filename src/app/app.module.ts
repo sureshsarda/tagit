@@ -21,7 +21,6 @@ import { LandingModule } from './landing/landing.module';
     ],
     imports: [
         LandingModule,
-        
         BrowserModule,
         AppRoutingModule,
         LandingModule,
