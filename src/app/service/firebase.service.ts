@@ -1,4 +1,4 @@
-import { Item, Tag } from './../models';
+import { Item, Tag } from './../model';
 import { Injectable } from '@angular/core';
 import * as firebase from "firebase";
 import 'firebase/firestore'

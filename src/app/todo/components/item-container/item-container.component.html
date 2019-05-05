@@ -1,6 +1,6 @@
-<div *ngIf="!pomodoroOn" class="container">
+<app-header></app-header>
 
-    <h1>dexterous.me</h1>
+<div class="container">
     <div class="content">
         <div class="filter">
             <div class="filter-category" (click)="onShowAll()">
@@ -51,6 +51,6 @@
 
 </div>
 
-<div *ngIf="pomodoroOn" class="container">
-    <!-- <app-pomodoro></app-pomodoro> -->
+<div>
+    <aye-horizontal-lister [items]="view.filtered"></aye-horizontal-lister>
 </div>

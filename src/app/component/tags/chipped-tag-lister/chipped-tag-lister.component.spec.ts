@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MainComponent } from './main.component';
+import { ChippedTagListerComponent } from './chipped-tag-lister.component';
 
-xdescribe('MainComponent', () => {
-  let component: MainComponent;
-  let fixture: ComponentFixture<MainComponent>;
+xdescribe('ChippedTagListerComponent', () => {
+  let component: ChippedTagListerComponent;
+  let fixture: ComponentFixture<ChippedTagListerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainComponent ]
+      declarations: [ ChippedTagListerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainComponent);
+    fixture = TestBed.createComponent(ChippedTagListerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

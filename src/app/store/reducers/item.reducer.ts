@@ -1,6 +1,6 @@
 import { FetchTagSuccess } from './../actions/tag.action';
 import { ItemState, TagState } from '..';
-import { Item, Tag } from './../../models';
+import { Item, Tag } from './../../model';
 import { FetchItemSuccess, ItemAdded, ItemUpdated, ItemArchived, ItemDeleted } from './../actions/item.action';
 
 export function reducer(state: ItemState, action: { type: string, payload: Item[] | Item }): ItemState {

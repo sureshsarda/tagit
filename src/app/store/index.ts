@@ -1,5 +1,5 @@
-import { Tag } from 'src/app/models';
-import { Item } from './../models';
+import { Tag } from 'src/app/model';
+import { Item } from './../model';
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 import * as itemReducers from './reducers';

@@ -1,23 +1,23 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatIconModule } from '@angular/material';
-import { ItemContainerComponent } from './item-container.component';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
+import { TagManagerComponent } from './tag-manager.component';
 
-xdescribe('ItemContainerComponent', () => {
-    let component: ItemContainerComponent;
-    let fixture: ComponentFixture<ItemContainerComponent>;
+xdescribe('TagManagerComponent', () => {
+    let component: TagManagerComponent;
+    let fixture: ComponentFixture<TagManagerComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemContainerComponent],
-            imports: [MatIconModule]
+            declarations: [TagManagerComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemContainerComponent);
+        fixture = TestBed.createComponent(TagManagerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,4 +1,4 @@
-import { Item } from './../../models';
+import { Item } from './../../model';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';

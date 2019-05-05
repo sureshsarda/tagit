@@ -1,26 +1,24 @@
-import { AyeComponentsModule } from './../aye.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material';
-import { ItemComponent } from './item.component';
-import { TagComponent } from '../tags/tag/tag.component';
+import { AyeComponentsModule } from './../../aye.module';
+import { HorizontalComponent } from './horizontal.component';
 
 
-xdescribe('ItemComponent', () => {
-    let component: ItemComponent;
-    let fixture: ComponentFixture<ItemComponent>;
+xdescribe('HorizontalComponent', () => {
+    let component: HorizontalComponent;
+    let fixture: ComponentFixture<HorizontalComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemComponent, TagComponent, ReactiveFormsModule],
+            declarations: [],
             imports: [MatIconModule, AyeComponentsModule]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemComponent);
+        fixture = TestBed.createComponent(HorizontalComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

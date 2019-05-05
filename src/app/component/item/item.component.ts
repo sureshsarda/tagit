@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Item, Tag } from 'src/app/models';
+import { Item, Tag } from 'src/app/model';
 
 @Component({
     selector: 'aye-item',

@@ -1,23 +1,23 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material';
-import { ItemContainerComponent } from './item-container.component';
+import { ItemCardComponent } from './item-card.component';
 
 
-xdescribe('ItemContainerComponent', () => {
-    let component: ItemContainerComponent;
-    let fixture: ComponentFixture<ItemContainerComponent>;
+xdescribe('ItemCardComponent', () => {
+    let component: ItemCardComponent;
+    let fixture: ComponentFixture<ItemCardComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemContainerComponent],
+            declarations: [ItemCardComponent],
             imports: [MatIconModule]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemContainerComponent);
+        fixture = TestBed.createComponent(ItemCardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,0 +1,33 @@
+.container {
+    height: 100%;
+    // border-right: 1px solid #AFAFAF;
+    width: 500px;
+    margin: 10px;
+    margin-left: 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.footer,
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.kind {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    text-transform: uppercase;
+    padding: 10px;
+
+}
+
+.tag-drop {
+    width: 100%;
+    height: 300px;
+}

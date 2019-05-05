@@ -1,8 +1,8 @@
-import { COLORS } from './../../todo/colors.model';
+import { COLORS } from './../../../todo/colors.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Tag } from 'src/app/models';
+import { Tag } from 'src/app/model';
 
 
 

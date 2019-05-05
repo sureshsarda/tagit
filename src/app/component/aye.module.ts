@@ -1,7 +1,11 @@
+import { ChippedTagComponent } from './tags/chipped-tag-lister/chipped-tag/chipped-tag.component';
+import { ChippedTagListerComponent } from './tags/chipped-tag-lister/chipped-tag-lister.component';
+import { TagDropAreaDirective } from './tags/tag-drop-area.directive';
+import { HorizontalComponent } from './lister/horizontal/horizontal.component';
 import { ItemComponent } from './item/item.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TagComponent } from './tag/tag.component';
+import { TagComponent } from './tags/tag/tag.component';
 import {
     MatIconModule,
     MatAutocompleteModule,
@@ -14,15 +18,30 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ItemCardComponent } from './item-card/item-card.component';
+import { TagListerComponent } from './lister/tag-lister/tag-lister.component';
+import { TagEditorComponent } from './tags/tag-editor/tag-editor.component';
+import { DraggableTagDirective } from './tags/draggable-tag.directive';
 
 @NgModule({
     declarations: [
         TagComponent,
-        ItemComponent
+        ItemComponent,
+        HorizontalComponent,
+        ItemCardComponent,
+        TagListerComponent,
+        TagEditorComponent,
+        TagDropAreaDirective,
+        DraggableTagDirective,
+        ChippedTagListerComponent,
+        ChippedTagComponent,
     ],
     exports: [
         TagComponent,
-        ItemComponent
+        ItemComponent,
+        HorizontalComponent,
+        TagListerComponent,
+        TagEditorComponent
     ],
     imports: [
         CommonModule,

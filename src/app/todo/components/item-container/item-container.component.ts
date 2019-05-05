@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Item, Tag } from 'src/app/models';
+import { Item, Tag } from 'src/app/model';
 import { AddItem, ArchiveItem, DeleteItem, FetchItem, UpdateItem } from './../../../store/actions';
 import { FetchTag } from './../../../store/actions/tag.action';
 import { AppStore, getItems, getTags } from './../../../store/index';
@@ -67,7 +67,6 @@ class FilteredView {
                 const val = intersection.length > 0 ? true : false;
                 return val;
             });
-        console.log(newItemSet);
         return newItemSet;
     }
 
@@ -92,15 +91,12 @@ export class ItemContainerComponent implements OnInit {
 
     newItem: Item;
 
-    pomodoroOn = false;
     constructor(
         private store: Store<AppStore>
     ) { }
 
     ngOnInit() {
         this.resetNewItem();
-        this.store.dispatch(new FetchItem());
-        this.store.dispatch(new FetchTag());
         // this.store.dispatch(new AddItem({ name: 'test' }));
 
         this.store.select(getItems).subscribe(

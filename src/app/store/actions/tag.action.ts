@@ -1,5 +1,5 @@
 import { StandardAction } from './common';
-import { Tag } from './../../models';
+import { Tag } from './../../model';
 
 export class AddTag extends StandardAction<Tag>  { }
 export class TagAdded extends StandardAction<Tag> { }

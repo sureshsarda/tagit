@@ -1,4 +1,3 @@
-import { filter } from 'rxjs/operators';
 export interface Tag {
     id?: string;
     description: string;
@@ -11,8 +10,8 @@ export interface Item {
     description: string;
 
     duedate?: Date;
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt?: Date;
+    createdAt?: Date;
     completed_at?: Date;
     deleted_at?: Date;
 

@@ -1,5 +1,5 @@
 import { StandardAction } from './common';
-import { Item } from './../../models';
+import { Item } from './../../model';
 
 export class AddItem extends StandardAction<Item>  { }
 export class ItemAdded extends StandardAction<Item> { }

@@ -1,0 +1,37 @@
+<div class="container" *ngIf="tag">
+    <div class="header">
+        <div class="button box primary">New</div>
+    </div>
+    <div class="content">
+        <h1>{{tag.description}}</h1>
+
+        <div class="typo subheader">Color</div>
+        <div class="colors">
+            <mat-icon [ngStyle]="{'color': c}" *ngFor="let c of colors">lens</mat-icon>
+        </div>
+        <div class="hr"></div>
+
+        <div class="typo subheader">Super Configuration</div>
+        <div class="section">
+            <div class="kind">
+                <div class="item gray-button">Regex</div>
+                <div class="item gray-button">Date</div>
+                <div class="item gray-button">Tags</div>
+            </div>
+            <div class="tag-drop" ayeTagDropArea (tagDropped)="onTagDropped($event)">
+                <div *ngIf="droppedTags">
+                    <aye-chipped-tag-lister [tags]="droppedTags"></aye-chipped-tag-lister>
+                </div>
+                <div class="center">
+                    Drag and drop tags here, you can also arrange them
+                </div>
+            </div>
+        </div>
+        <div class="hr"></div>
+    </div>
+
+    <div class="footer">
+        <div class="button box secondary">Discard</div>
+        <div class="button box primary">Save</div>
+    </div>
+</div>

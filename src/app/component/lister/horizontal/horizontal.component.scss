@@ -1,0 +1,31 @@
+.container {
+    .content {
+        display: flex;
+        flex-grow: 1;
+        overflow-x: scroll;
+
+        .tag {
+            min-width: 300px;
+            background: #f2f5f7;
+            border-right: 1px solid #CCC;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+
+        }
+
+        .header {
+            color: white;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 20px;
+            justify-content: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,monospace;
+        }
+    }
+}
