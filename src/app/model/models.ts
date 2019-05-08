@@ -1,8 +1,12 @@
+import { SuperTag } from './super-tag.model';
 export interface Tag {
     id?: string;
     description: string;
 
     color?: string;
+
+    super?: SuperTag;
+    favorite?: boolean;
 }
 
 export interface Item {

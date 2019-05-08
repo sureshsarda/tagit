@@ -22,6 +22,7 @@ import { ItemCardComponent } from './item-card/item-card.component';
 import { TagListerComponent } from './lister/tag-lister/tag-lister.component';
 import { TagEditorComponent } from './tags/tag-editor/tag-editor.component';
 import { DraggableTagDirective } from './tags/draggable-tag.directive';
+import { NavigatorComponent } from './navigator/navigator.component';
 
 @NgModule({
     declarations: [
@@ -35,13 +36,15 @@ import { DraggableTagDirective } from './tags/draggable-tag.directive';
         DraggableTagDirective,
         ChippedTagListerComponent,
         ChippedTagComponent,
+        NavigatorComponent,
     ],
     exports: [
         TagComponent,
         ItemComponent,
         HorizontalComponent,
         TagListerComponent,
-        TagEditorComponent
+        TagEditorComponent,
+        NavigatorComponent
     ],
     imports: [
         CommonModule,

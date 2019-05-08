@@ -1,17 +1,18 @@
-import { ItemEffects } from './store/effects/item.effect';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodoModule } from './todo/todo.module';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { applicationReducer } from './store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { LandingModule } from './landing/landing.module';
+import { applicationReducer, CustomSerializer } from './store';
+import { ItemEffects } from './store/effects/item.effect';
+import { TodoModule } from './todo/todo.module';
 
 
 
@@ -29,13 +30,16 @@ import { LandingModule } from './landing/landing.module';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        StoreRouterConnectingModule,
         StoreModule.forRoot(applicationReducer),
         EffectsModule.forRoot([ItemEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 5
         })
     ],
-    providers: [],
+    providers: [
+        { provide: RouterStateSerializer, useClass: CustomSerializer }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

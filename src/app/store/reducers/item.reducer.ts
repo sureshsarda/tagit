@@ -1,7 +1,18 @@
 import { FetchTagSuccess } from './../actions/tag.action';
-import { ItemState, TagState } from '..';
+import { ItemState, TagState, AppRouterState } from '..';
 import { Item, Tag } from './../../model';
 import { FetchItemSuccess, ItemAdded, ItemUpdated, ItemArchived, ItemDeleted } from './../actions/item.action';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { AppNavigationAction } from '../actions/router.action';
+
+// export function routerReducer(state: AppRouterState, action: { type: string, payload: ActivatedRouteSnapshot }): AppRouterState {
+//     // console.log(action);
+//     switch (action.type) {
+//         case AppNavigationAction.type:
+//             const retVal: AppRouterState = { activeRoute: action.payload };
+//             return { ...retVal };
+//     }
+// }
 
 export function reducer(state: ItemState, action: { type: string, payload: Item[] | Item }): ItemState {
     switch (action.type) {

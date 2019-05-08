@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router, UrlSegment } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Item, Tag } from 'src/app/model';
-import { AddItem, ArchiveItem, DeleteItem, FetchItem, UpdateItem } from './../../../store/actions';
-import { FetchTag } from './../../../store/actions/tag.action';
-import { AppStore, getItems, getTags } from './../../../store/index';
+import { AddItem, ArchiveItem, DeleteItem, UpdateItem } from './../../../store/actions';
+import { AppStore, getItems, getTag, getTags, getActivatedRoute } from './../../../store/index';
 
 
 class FilteredView {
@@ -85,14 +86,18 @@ export class ItemContainerComponent implements OnInit {
 
     view: FilteredView = new FilteredView([]);
 
+    selectedTag: Tag;
     tags$: Observable<Tag[]>;
+    tags: Tag[];
     filterTags = new Set();
     _tagOptions: Tag[];
 
     newItem: Item;
 
     constructor(
-        private store: Store<AppStore>
+        private store: Store<AppStore>,
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit() {
@@ -111,6 +116,12 @@ export class ItemContainerComponent implements OnInit {
         this.store.select(getTags).subscribe(it => this._tagOptions = it);
 
         this.tags$ = this.store.select(getTags);
+        this.store.select(getTags).subscribe(it => this.tags = it);
+
+        this.store.select(getActivatedRoute).subscribe(it => console.log(it));
+        this.store.select(getActivatedRoute).pipe(
+            tap(it => console.log(it))
+        );
     }
 
     onItemModified(item: Item) {
@@ -161,4 +172,8 @@ export class ItemContainerComponent implements OnInit {
         };
     }
 
+    onTagClicked(tag: Tag) {
+        this.router.navigate(['/', 'tags', tag.id, 'view']);
+
+    }
 }

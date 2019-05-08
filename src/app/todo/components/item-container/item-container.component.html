@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<aye-navigator [tags]="tags" (tagClicked)="onTagClicked($event)"></aye-navigator>
 <div class="container">
     <div class="content">
         <div class="filter">
@@ -51,6 +51,6 @@
 
 </div>
 
-<div>
+<!-- <div>
     <aye-horizontal-lister [items]="view.filtered"></aye-horizontal-lister>
-</div>
+</div> -->

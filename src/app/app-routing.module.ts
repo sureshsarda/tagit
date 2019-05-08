@@ -5,6 +5,7 @@ import { TagManagerComponent } from './todo/tag-manager/tag-manager.component';
 
 const routes: Routes = [
     { path: '', component: ItemContainerComponent },
+    { path: 'tags/:id/view', component: ItemContainerComponent },
     { path: 'tags/manage', component: TagManagerComponent }
 ];
 

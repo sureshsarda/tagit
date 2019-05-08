@@ -147,6 +147,8 @@ export class SuperTag implements Serializable<SuperTag>, Filterable {
     queries: { [id: string]: QueryComponent } = {};
     sequence: string[];
 
+    type?: string;
+
     bucket(items: Item[]) {
         const bucket = {};
         Object.keys(this.queries).forEach(key => {

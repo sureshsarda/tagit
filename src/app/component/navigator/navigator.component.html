@@ -1,0 +1,11 @@
+<div class="navigator container">
+    <div class="super-list">
+        <div class="tag" *ngFor="let tag of _favoriteTags" (click)="tagClicked.emit(tag)">
+            {{tag.description}}
+        </div>
+    </div>
+
+    <div class="sub-list">
+
+    </div>
+</div>

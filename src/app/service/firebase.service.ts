@@ -1,9 +1,7 @@
-import { Item, Tag } from './../model';
-import { Injectable } from '@angular/core';
-import * as firebase from "firebase";
-import 'firebase/firestore'
-import { Observable, from, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import 'firebase/firestore';
+import { Item, SuperTag, Tag } from './../model';
 
 
 class ResultStub {
@@ -14,14 +12,10 @@ class ResultStub {
     providedIn: 'root'
 })
 export class FirebaseService {
-    db = firebase.firestore();
-
-    itemsRef: firebase.firestore.CollectionReference;
 
     userId = '1';
 
     constructor(private http: HttpClient) {
-        this.itemsRef = this.db.collection('users').doc('suresh').collection('items');
     }
 
     private get url() {
@@ -43,7 +37,76 @@ export class FirebaseService {
 
     getTags(payload?: any): Promise<Tag[]> {
         console.log('Fetching items in service...');
-        return this.makeRequest<Item[]>('http://127.0.0.1:8080/user/' + this.userId + '/tag');
+        return this.makeRequest<Tag[]>('http://127.0.0.1:8080/user/' + this.userId + '/tag').then(
+            (tags: Tag[]) => {
+                tags.push(this.dailyAgendaTag());
+                tags.push(this.weeksViewTag());
+                return tags;
+            }
+        );
+    }
+
+    weeksViewTag(): Tag {
+        return {
+            id: '999',
+            color: '#AFAF33',
+            favorite: true,
+            description: "Week's View",
+            super: new SuperTag().deserialize(JSON.parse(`{
+                "type": "board",
+                "queries": {
+                    "monday": {
+                        "date_range": {
+                            "gte": ["startOf", "day"],
+                            "lte": ["endOf", "day"]
+                        }
+                    },
+                    "tuesday": {
+                        "date_range": {
+                            "gte": [
+                                ["add", "1", "day"],
+                                ["startOf", "day"]
+                            ],
+                            "lte": [
+                                ["add", "1", "day"],
+                                ["endOf", "day"]
+                            ]
+                        }
+                    }
+                }
+            }`))
+        };
+    }
+
+    dailyAgendaTag(): Tag {
+        return {
+            id: '1000',
+            color: '#AFCCAF',
+            favorite: true,
+            description: 'Daily Agenda',
+            super: new SuperTag().deserialize(JSON.parse(`{
+                "queries": {
+                    "today": {
+                        "date_range": {
+                            "gte": ["startOf", "day"],
+                            "lte": ["endOf", "day"]
+                        }
+                    },
+                    "tomorrow": {
+                        "date_range": {
+                            "gte": [
+                                ["add", "1", "day"],
+                                ["startOf", "day"]
+                            ],
+                            "lte": [
+                                ["add", "1", "day"],
+                                ["endOf", "day"]
+                            ]
+                        }
+                    }
+                }
+            }`))
+        };
     }
 
     addItem(item: Item): Promise<Item> {
