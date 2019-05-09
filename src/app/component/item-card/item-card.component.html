@@ -6,3 +6,14 @@
         {{item.description}}
     </div>
 </div>
+
+
+<!-- New item-->
+<div *ngIf="!item" class="container">
+    <div class="left-drop">
+        <mat-icon class="button round">done</mat-icon>
+    </div>
+    <div class="body">
+        Add a new task
+    </div>
+</div>

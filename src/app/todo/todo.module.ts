@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SuperTagComponent } from './super-tag/super-tag.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
         ItemContainerComponent,
         TagManagerComponent,
         HeaderComponent,
+        SuperTagComponent
     ],
     imports: [
         AyeComponentsModule,

@@ -1,7 +1,8 @@
-import { AppStore, getTags } from './../../store/index';
-import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Tag } from 'src/app/model';
+import { AppStore } from './../../store/index';
+import * as selectors from '../../store/selectors';
 
 @Component({
     selector: 'app-tag-manager',
@@ -17,7 +18,7 @@ export class TagManagerComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.store.select(getTags).subscribe(it => this.tags = it);
+        this.store.select(selectors.allTags).subscribe(it => this.tags = it);
     }
 
 }

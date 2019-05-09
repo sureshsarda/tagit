@@ -2,18 +2,25 @@
     .content {
         display: flex;
         flex-grow: 1;
-        overflow-x: scroll;
+        overflow-x: auto;
+
+        justify-content: center;
+        padding-bottom: 20px;
 
         .tag {
-            min-width: 300px;
+            // flex-grow: 1;
+            width: 300px;
             background: #f2f5f7;
-            border-right: 1px solid #CCC;
+            
+            border: 1px solid #CCC;
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
 
+            margin: 10px 5px;
         }
 
         .header {
+            background-color: rebeccapurple;
             color: white;
             height: 20px;
             display: flex;
@@ -25,7 +32,7 @@
             font-weight: 700;
             font-size: 12px;
             letter-spacing: 2px;
-            font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,monospace;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, monospace;
         }
     }
 }

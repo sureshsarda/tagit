@@ -8,16 +8,10 @@ import { Tag } from 'src/app/model';
 })
 export class NavigatorComponent implements OnInit {
 
-    _allTags: Tag[];
-    _favoriteTags: Tag[];
-
     @Output() tagClicked: EventEmitter<Tag> = new EventEmitter();
 
+    @Input() tags: Tag[];
 
-    @Input() set tags(tags: Tag[]) {
-        this._allTags = tags;
-        this._favoriteTags = tags.filter(it => it.favorite);
-    }
 
     constructor() { }
 

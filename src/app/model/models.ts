@@ -9,6 +9,17 @@ export interface Tag {
     favorite?: boolean;
 }
 
+export class TagImpl implements Tag {
+    id?: string;
+    description: string;
+    color?: string;
+    super?: SuperTag;
+    favorite?: boolean;
+
+
+
+}
+
 export interface Item {
     id?: string;
     description: string;

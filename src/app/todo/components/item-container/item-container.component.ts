@@ -1,82 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, UrlSegment } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
 import { Item, Tag } from 'src/app/model';
 import { AddItem, ArchiveItem, DeleteItem, UpdateItem } from './../../../store/actions';
-import { AppStore, getItems, getTag, getTags, getActivatedRoute } from './../../../store/index';
+import { AppStore, getActivatedRoute, getActivatedTag } from './../../../store/index';
+import * as selectors from './../../../store/selectors';
 
 
-class FilteredView {
 
-    private allItems: Item[];
-
-    tagFilters = new Set();
-
-    private _hideCompleted = true;
-
-    private _hideDeleted = true;
-
-    constructor(items: Item[]) {
-        this.allItems = items;
-
-
-    }
-
-    toggleCompleted() {
-        this._hideCompleted = !this._hideCompleted;
-    }
-
-    toggleDeleted() {
-        this._hideDeleted = !this._hideDeleted;
-    }
-
-    reset() {
-        this._hideCompleted = true;
-        this._hideDeleted = true;
-        this.tagFilters = new Set();
-    }
-
-    filterByTag(t: Tag) {
-        this.tagFilters.add(t.id);
-    }
-
-    unfilterTag(t: Tag) {
-        this.tagFilters.delete(t.id);
-    }
-
-    set hideDeleted(val: boolean) {
-        this._hideDeleted = val;
-    }
-
-    set hideCompleted(val: boolean) {
-        this._hideCompleted = val;
-    }
-
-    get filtered() {
-        let newItemSet = this.allItems
-            .filter((it: Item) => this._hideCompleted && !it.completed_at)
-            .filter((it: Item) => this._hideDeleted && !it.deleted_at)
-            .filter((it: Item) => {
-                if (this.tagFilters.size === 0) {
-                    return true;
-                }
-
-                const itemTags = it.tags.map((ct: Tag) => ct.id);
-                const intersection = itemTags.filter(ct => this.tagFilters.has(ct));
-                const val = intersection.length > 0 ? true : false;
-                return val;
-            });
-        return newItemSet;
-    }
-
-    items(items: Item[]) {
-        this.allItems = items;
-    }
-
-
-}
 @Component({
     selector: 'app-item-container',
     templateUrl: './item-container.component.html',
@@ -84,44 +16,37 @@ class FilteredView {
 })
 export class ItemContainerComponent implements OnInit {
 
-    view: FilteredView = new FilteredView([]);
-
-    selectedTag: Tag;
-    tags$: Observable<Tag[]>;
-    tags: Tag[];
-    filterTags = new Set();
-    _tagOptions: Tag[];
-
-    newItem: Item;
+    favoriteTags: Tag[];
+    activeTag: Tag;
+    items: Item[];
 
     constructor(
         private store: Store<AppStore>,
         private router: Router,
-        private route: ActivatedRoute
     ) { }
 
     ngOnInit() {
         this.resetNewItem();
-        // this.store.dispatch(new AddItem({ name: 'test' }));
 
-        this.store.select(getItems).subscribe(
-            (items: Item[]) => {
-                this.view.items(items.map(it => {
-                    it.duedate = it.duedate ? new Date(it.duedate) : it.duedate;
-                    return it;
-                }));
+        this.store.select(selectors.favoriteTags).subscribe(it => {
+            this.favoriteTags = it;
+            if (this.favoriteTags && this.favoriteTags.length) {
+                this.activeTag = this.favoriteTags[0];
             }
-        );
+            console.log('Favorite Tags: ', this.favoriteTags);
+            console.log('Active Tag: ', this.activeTag);
+        });
 
-        this.store.select(getTags).subscribe(it => this._tagOptions = it);
+        this.store.select(getActivatedTag).subscribe(it => {
+            if (it) {
+                console.log('Selected Tag Changed: ', it);
+                this.activeTag = it;
+            }
+        });
 
-        this.tags$ = this.store.select(getTags);
-        this.store.select(getTags).subscribe(it => this.tags = it);
-
-        this.store.select(getActivatedRoute).subscribe(it => console.log(it));
-        this.store.select(getActivatedRoute).pipe(
-            tap(it => console.log(it))
-        );
+        this.store.select(selectors.getItems).subscribe(it => {
+            this.items = it;
+        });
     }
 
     onItemModified(item: Item) {
@@ -143,33 +68,29 @@ export class ItemContainerComponent implements OnInit {
     }
 
     onAddTagFilter(t: Tag) {
-        this.view.filterByTag(t);
-        // this.filterTags.add(t.id);
-        // this.activeItems = Filters.apply(this.allItems, this.filterTags);
+        // this.view.filterByTag(t);
     }
 
     onRemoveTagFilter(t: Tag) {
-        this.view.unfilterTag(t);
-        // this.filterTags.delete(tid);
-        // this.activeItems = Filters.apply(this.allItems, this.filterTags);
+        // this.view.unfilterTag(t);
     }
 
     onShowAll() {
-        this.view.reset();
-        this.view.hideCompleted = false;
-        this.view.hideDeleted = false;
+        // this.view.reset();
+        // this.view.hideCompleted = false;
+        // this.view.hideDeleted = false;
     }
 
     onResetFilters() {
-        this.view.reset();
+        // this.view.reset();
     }
 
     resetNewItem() {
-        this.newItem = {
-            description: '',
-            updatedAt: new Date(),
-            createdAt: new Date()
-        };
+        // this.newItem = {
+        //     description: '',
+        //     updatedAt: new Date(),
+        //     createdAt: new Date()
+        // };
     }
 
     onTagClicked(tag: Tag) {

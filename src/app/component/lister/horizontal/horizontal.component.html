@@ -1,14 +1,14 @@
 <div class="container">
-    Kanban
     <div class="content">
-        <div class="tag"  *ngFor="let t of _tags">
+        <div class="tag" *ngFor="let t of _tags">
             <div class="header" [ngStyle]="{'background-color': t.color}">
-                {{t.description}}
+                {{t.description || t}}
             </div>
 
-            <div *ngFor="let task of _groupedByTag[t.id]">
+            <div *ngFor="let task of _groupedByTag[t.id || t]">
                 <aye-item-card [item]="task"></aye-item-card>
             </div>
+            <aye-item-card></aye-item-card>
         </div>
     </div>
 </div>

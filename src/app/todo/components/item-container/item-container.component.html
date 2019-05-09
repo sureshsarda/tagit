@@ -1,6 +1,10 @@
 <app-header></app-header>
-<aye-navigator [tags]="tags" (tagClicked)="onTagClicked($event)"></aye-navigator>
-<div class="container">
+<aye-navigator [tags]="favoriteTags" (tagClicked)="onTagClicked($event)"></aye-navigator>
+
+<div *ngIf="activeTag">
+    <app-super-tag [super]="activeTag" [items]="items"></app-super-tag>
+</div>
+<!-- <div class="container">
     <div class="content">
         <div class="filter">
             <div class="filter-category" (click)="onShowAll()">
@@ -46,11 +50,11 @@
                 [tagOptions]="_tagOptions"></aye-item>
         </div>
         <div class="post"></div>
-    </div>
+    </div> 
 
 
 </div>
-
+-->
 <!-- <div>
     <aye-horizontal-lister [items]="view.filtered"></aye-horizontal-lister>
 </div> -->

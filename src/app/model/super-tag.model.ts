@@ -1,5 +1,6 @@
 import { Item } from './../model';
 import * as moment from 'moment';
+import { Tag } from './models';
 
 export interface Filterable {
 
@@ -147,25 +148,33 @@ export class SuperTag implements Serializable<SuperTag>, Filterable {
     queries: { [id: string]: QueryComponent } = {};
     sequence: string[];
 
-    type?: string;
+    type?: 'board' | 'list';
+    subTags?: Tag[] = [];
 
-    bucket(items: Item[]) {
+    bucket(items: Item[]): { [key: string]: Item[] } {
         const bucket = {};
         Object.keys(this.queries).forEach(key => {
             const qComponent = this.queries[key];
             bucket[key] = items.filter(it => qComponent.passes(it));
+            this.subTags.push({ id: key, description: key });
         });
         return bucket;
+
     }
 
     passes(item: Item): boolean {
         return Object.values(this.queries).some(it => it.passes(item));
     }
+
     deserialize(json: { queries?: object, sequence: string[] }): SuperTag {
         Object.keys(json.queries).forEach(key => {
             this.queries[key] = new QueryComponent().deserialize(json.queries[key]);
         });
-        this.sequence = json.sequence;
+
+        Object.keys(json).filter(key => key !== 'queries').forEach(key =>
+            this[key] = json[key]
+        );
+
         return this;
     }
 }

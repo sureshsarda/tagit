@@ -1,0 +1,8 @@
+<div *ngIf="_super">
+    <div *ngIf="_super.super.type === 'board'">
+        <aye-horizontal-lister [keyValues]="_buckets"></aye-horizontal-lister>
+    </div>
+    <div *ngIf="_super.super.type !== 'board'">
+        Unsupported Super Type
+    </div>
+</div>

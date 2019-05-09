@@ -85,10 +85,14 @@ export class FirebaseService {
             favorite: true,
             description: 'Daily Agenda',
             super: new SuperTag().deserialize(JSON.parse(`{
+                "type": "board",
                 "queries": {
                     "today": {
                         "date_range": {
-                            "gte": ["startOf", "day"],
+                            "gte": [
+                                ["startOf", "day"],
+                                ["subtract", "year", 10]
+                            ],
                             "lte": ["endOf", "day"]
                         }
                     },

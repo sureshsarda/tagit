@@ -1,9 +1,8 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store';
-import { Tag } from 'src/app/model';
-import { Item } from './../model';
-import * as reducers from './reducers';
-import { ActivatedRouteSnapshot, Params, RouterStateSnapshot, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
 import * as fromRouter from '@ngrx/router-store';
+import { ActionReducerMap, createSelector } from '@ngrx/store';
+import * as reducers from './reducers';
+import { ItemState, TagState, getTagState } from './selectors';
 
 
 export interface AppRouterState {
@@ -19,13 +18,7 @@ export interface AppStore {
     routes?: fromRouter.RouterReducerState<AppRouterState>;
 }
 
-export interface ItemState {
-    entities: { [id: string]: Item };
-}
 
-export interface TagState {
-    entities: { [id: string]: Tag };
-}
 
 export const initialState: AppStore = {
     items: { entities: {} },
@@ -38,10 +31,7 @@ export const applicationReducer: ActionReducerMap<AppStore> = {
     routes: fromRouter.routerReducer
 };
 
-export const getItemsState = (state: AppStore) => state.items;
-export const getTagState = (state: AppStore) => state.tags;
 export const getRouterState = (state: AppStore) => state.routes;
-
 export const getActivatedRoute = createSelector(
     getRouterState,
     (route: fromRouter.RouterReducerState<AppRouterState>) => {
@@ -49,34 +39,18 @@ export const getActivatedRoute = createSelector(
     }
 );
 
-export const getItems = createSelector(
-    getItemsState,
-    (state: ItemState) => {
-        if (state && state.entities) {
-            return Object.values(state.entities);
-        }
-        return [];
-    }
-);
-
-export const getTags = createSelector(
+export const getActivatedTag = createSelector(
+    getRouterState,
     getTagState,
-    (state: TagState) => {
-        if (state && state.entities) {
-            return Object.values(state.entities);
+    (route: fromRouter.RouterReducerState<AppRouterState>, tagState: TagState) => {
+        const tagId = route.state.params.id;
+        if (tagState && tagState.entities && tagState.entities[tagId]) {
+            return tagState.entities[tagId];
+        } else {
+            return null;
         }
-        return [];
     }
 );
-
-export const getTag = createSelector(
-    getTagState,
-    (state: TagState, props: { tagId: string }): Tag => {
-        return state.entities[props.tagId];
-    }
-);
-
-
 
 
 export class CustomSerializer implements fromRouter.RouterStateSerializer<AppRouterState> {
