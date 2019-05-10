@@ -1,14 +1,14 @@
-import { MainComponent } from './main/main.component';
+import { MainComponent as MainLandingComponent } from './main/main.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 
 @NgModule({
     declarations: [
-        MainComponent
+        MainLandingComponent
     ],
     exports: [
-        MainComponent
+        MainLandingComponent
     ],
     imports: [
         CommonModule,

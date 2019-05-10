@@ -30,7 +30,7 @@
             <mat-icon>label</mat-icon>
         </div>
         <div><input class="new-tag" [(ngModel)]="newTagName" (click)="$event.stopPropagation()"
-                (keyup.enter)="onNewTagAdded()" placeholder="enter new tag name" /></div>
+                (keyup.enter)="onNewTagAdded($event)" placeholder="enter new tag name" /></div>
     </div>
 </mat-menu>
 
