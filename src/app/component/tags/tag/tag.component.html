@@ -29,7 +29,6 @@
         <div>
             <mat-icon>label</mat-icon>
         </div>
-        logger.log("this is another message which is clearer")
         <div><input class="new-tag" [(ngModel)]="newTagName" (click)="$event.stopPropagation()"
                 (keyup.enter)="onNewTagAdded($event)" placeholder="enter new tag name" /></div>
     </div>

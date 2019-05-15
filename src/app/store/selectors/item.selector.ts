@@ -17,6 +17,16 @@ export const getItems = createSelector(
     }
 );
 
+export const getActiveItems = createSelector(
+    getItemsState,
+    (state: ItemState) => {
+        if (state && state.entities) {
+            return Object.values(state.entities).filter(it => !(it.completed_at || it.deleted_at));
+        }
+        return [];
+    }
+)
+
 export const getItemsForTag = createSelector(
     getItemsState,
     (state: ItemState) => {

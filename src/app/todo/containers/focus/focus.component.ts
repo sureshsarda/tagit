@@ -1,8 +1,9 @@
-import { Item, Tag } from 'src/app/model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getItems, allTags } from 'src/app/store/selectors';
+import { Item, Tag } from 'src/app/model';
+import { allTags } from 'src/app/store/selectors';
 import { AppStore } from './../../../store/index';
+import { getActiveItems } from './../../../store/selectors/item.selector';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class FocusComponent implements OnInit {
 
 
     ngOnInit() {
-        this.store.select(getItems).subscribe(it => {
+        this.store.select(getActiveItems).subscribe(it => {
             console.log('Focus Component: ', it);
             this.items = it;
         });
