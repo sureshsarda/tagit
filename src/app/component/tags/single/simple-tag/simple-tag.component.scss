@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: center;
+
+
+    .left {
+        flex-grow: 0;
+    }
+
+    .content {
+        flex-grow: 1;
+    }
+
+    .right {
+        flex-grow: 0;
+    }
+}
+
+.secondary-icons {
+    display: none;
+}
+
+.container {
+
+    &:hover {
+
+        .secondary-icons {
+            display: flex;
+        }
+    }
+
+}

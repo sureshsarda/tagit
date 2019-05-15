@@ -23,6 +23,9 @@ import { TagListerComponent } from './lister/tag-lister/tag-lister.component';
 import { TagEditorComponent } from './tags/tag-editor/tag-editor.component';
 import { DraggableTagDirective } from './tags/draggable-tag.directive';
 import { NavigatorComponent } from './navigator/navigator.component';
+import { VerticalTagListerComponent } from './tags/lister/vertical-tag-lister/vertical-tag-lister.component';
+import { TagChipComponent } from './tags/single/tag-chip/tag-chip.component';
+import { SimpleTagComponent } from './tags/single/simple-tag/simple-tag.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +40,10 @@ import { NavigatorComponent } from './navigator/navigator.component';
         ChippedTagListerComponent,
         ChippedTagComponent,
         NavigatorComponent,
+        VerticalTagListerComponent,
+        TagChipComponent,
+        SimpleTagComponent,
+        // DraggableItemDirective,
     ],
     exports: [
         TagComponent,
@@ -44,7 +51,10 @@ import { NavigatorComponent } from './navigator/navigator.component';
         HorizontalComponent,
         TagListerComponent,
         TagEditorComponent,
-        NavigatorComponent
+        NavigatorComponent,
+        VerticalTagListerComponent,
+        SimpleTagComponent,
+        // DraggableItemDirective
     ],
     imports: [
         CommonModule,

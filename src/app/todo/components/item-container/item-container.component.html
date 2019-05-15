@@ -1,9 +1,10 @@
 <app-header></app-header>
 <aye-navigator [tags]="favoriteTags" (tagClicked)="onTagClicked($event)"></aye-navigator>
 
-<div *ngIf="activeTag">
+<app-focus></app-focus>
+<!-- <div *ngIf="activeTag">
     <app-super-tag [super]="activeTag" [items]="items"></app-super-tag>
-</div>
+</div> -->
 <!-- <div class="container">
     <div class="content">
         <div class="filter">

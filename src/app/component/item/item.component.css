@@ -47,3 +47,8 @@ input {
 .container:hover .action {
     display: flex;
 }
+
+.drop-active {
+    background: #eeffff;
+}
+

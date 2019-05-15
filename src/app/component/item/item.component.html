@@ -1,25 +1,26 @@
-<div>
+<div ayeTagDropArea (dropped)="onTagDropped($event)" [dropActiveClass]="'drop-active'">
     <div class="container">
         <mat-icon class="round-icon medium" (click)="onCheckClick()">check</mat-icon>
         <div class="full-width">
-            <div class="content" data-id={{item.id}}>
-                <input #name (keyup.enter)="onEnter(name.value)" value={{item.description}}>
+            <div class="content" data-id="{{item.id}}">
+                <input #name (keyup.enter)="onEnter(name.value)" value="{{item.description}}">
             </div>
             <div class="bottom-bar" *ngIf="!hideSecondaryBar">
-                <aye-tag [tags]=item.tags [options]="tagOptions" (added)="onTagAdded($event)" (removed)="onTagRemoved($event)"></aye-tag>
+                <aye-tag [tags]="item.tags" [options]="tagOptions" (added)="onTagAdded($event)"
+                    (removed)="onTagRemoved($event)"></aye-tag>
                 <div class="action">
                     <div *ngIf="item.duedate">
                         <h4>{{item.duedate | date:'MMM d'}}</h4>
                     </div>
-                    <div class="round-icon noborder small" title='Assign a due date'>
+                    <div class="round-icon noborder small" title="Assign a due date">
                         <input matInput [(ngModel)]="newDueDate" [matDatepicker]="picker" placeholder="Choose a date">
                         <mat-datepicker #picker (closed)="onDatePickerClosed()"></mat-datepicker>
                         <mat-icon (click)="picker.open()">date_range</mat-icon>
                     </div>
-                    <div class="round-icon noborder small" title='Start Pomodoro Timer'>
+                    <div class="round-icon noborder small" title="Start Pomodoro Timer">
                         <mat-icon>timer</mat-icon>
                     </div>
-                    <div class="round-icon noborder small" title='Delete' (click)="onDelete()" *ngIf="!item.deleted_at">
+                    <div class="round-icon noborder small" title="Delete" (click)="onDelete()" *ngIf="!item.deleted_at">
                         <mat-icon>delete</mat-icon>
                     </div>
                 </div>

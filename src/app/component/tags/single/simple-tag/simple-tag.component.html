@@ -1,0 +1,13 @@
+<div class="container" ayeDraggableTag [payload]="tag">
+    <div *ngIf="showPrimaryIcon">
+        <mat-icon class="round-icon small noborder" [ngStyle]="{'color': tag.color}">{{primaryIcon || 'lens'}}
+        </mat-icon>
+    </div>
+    <div class="content">
+        {{ tag.description }}
+    </div>
+
+    <div class="secondary-icons" *ngIf="showSecondaryIcon">
+        <mat-icon class="round-icon small noborder">{{secondaryIcon || 'close' }}</mat-icon>
+    </div>
+</div>

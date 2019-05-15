@@ -1,3 +1,4 @@
+import { FocusComponent } from './containers/focus/focus.component';
 import { HeaderComponent } from './header/header.component';
 import { TagManagerComponent } from './tag-manager/tag-manager.component';
 import { AyeComponentsModule } from './../component/aye.module';
@@ -16,7 +17,8 @@ import { SuperTagComponent } from './super-tag/super-tag.component';
         ItemContainerComponent,
         TagManagerComponent,
         HeaderComponent,
-        SuperTagComponent
+        SuperTagComponent,
+        FocusComponent
     ],
     imports: [
         AyeComponentsModule,

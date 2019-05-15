@@ -45,7 +45,7 @@ export class ItemComponent implements OnInit {
         }
 
         if (!this.item.tags) {
-            this.item.tags = []
+            this.item.tags = [];
         }
         this.item.tags.push(tag);
     }
@@ -54,13 +54,14 @@ export class ItemComponent implements OnInit {
         this.item.tags = this.item.tags.filter(it => it.id !== tag.id);
     }
 
-    onNewTagAdded(element: HTMLInputElement) {
-        const value = element.value;
-        element.value = '';
+
+    onTagDropped(t: Tag) {
+        console.log('Tag Dropeed');
+        this.item.tags.push(t);
     }
 
     onDatePickerClosed() {
-        if (this.newDueDate !== undefined && this.newDueDate != this.item.duedate) {
+        if (this.newDueDate !== undefined && this.newDueDate !== this.item.duedate) {
             console.log(`Duedate changed. Old was ${this.item.duedate}, new is: ${this.newDueDate}`);
             this.item.duedate = this.newDueDate;
 

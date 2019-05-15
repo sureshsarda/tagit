@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="left">
+        <aye-simple-tag 
+            *ngFor="let tag of tags" 
+            [tag]="tag" 
+            [showPrimaryIcon]="true" 
+            [showSecondaryIcon]="true"
+            [drag]="true"
+            >
+        </aye-simple-tag>
+    </div>
+    <div class="content">
+        <aye-item [item]="item" *ngFor="let item of items"></aye-item>        
+    </div>  
+</div>
