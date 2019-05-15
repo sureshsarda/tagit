@@ -125,7 +125,7 @@ export class FirebaseService {
 
     updateItem(param: Item): Promise<Item> {
         const updatable = ['duedate', 'completed_at', 'deleted_at', 'description'];
-        const payload = {}
+        const payload = {};
         Object.keys(param).forEach(k => {
             if (updatable.indexOf(k) > -1) {
                 payload[k] = param[k];
@@ -133,6 +133,20 @@ export class FirebaseService {
         });
 
         return this.http.patch(this.url + '/task/' + param.id, payload).toPromise()
+            .then((result: ResultStub) => {
+                return result.data as Item;
+            });
+    }
+
+    updateItemAddTag(item: Item, tag: Tag): Promise<Item> {
+        return this.http.put(this.url + '/task/' + item.id + '/tag/' + tag.id, {}).toPromise()
+            .then((result: ResultStub) => {
+                return result.data as Item;
+            });
+    }
+
+    updateItemRemoveTag(item: Item, tag: Tag): Promise<Item> {
+        return this.http.delete(this.url + '/task/' + item.id + '/tag/' + tag.id).toPromise()
             .then((result: ResultStub) => {
                 return result.data as Item;
             });

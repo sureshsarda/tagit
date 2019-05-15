@@ -1,6 +1,6 @@
 import { ItemState, TagState } from './../selectors';
 import { Item, Tag } from './../../model';
-import { FetchItemSuccess, ItemAdded, ItemArchived, ItemDeleted, ItemUpdated } from './../actions/item.action';
+import { FetchItemSuccess, ItemAdded, ItemArchived, ItemDeleted, ItemUpdated, TagAddedToItem, TagRemovedFromItem } from './../actions/item.action';
 import { FetchTagSuccess } from './../actions/tag.action';
 
 
@@ -19,6 +19,8 @@ export function reducer(state: ItemState, action: { type: string, payload: Item[
         case ItemUpdated.type:
         case ItemArchived.type:
         case ItemDeleted.type:
+        case TagAddedToItem.type:
+        case TagRemovedFromItem.type:
             const item = action.payload as Item;
             state.entities[item.id] = item;
             return { ...state };

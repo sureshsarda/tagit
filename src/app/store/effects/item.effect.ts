@@ -1,3 +1,4 @@
+import { AddTagToItem, RemoveTagFromItem } from './../actions/item.action';
 import { Item } from './../../model';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -15,7 +16,9 @@ import {
     ItemUpdated,
     UpdateItem,
     FetchTag,
-    FetchTagSuccess
+    FetchTagSuccess,
+    TagAddedToItem,
+    TagRemovedFromItem
 } from './../actions';
 
 
@@ -41,6 +44,30 @@ export class ItemEffects {
             return this.itemService.updateItem(it.payload).then(
                 (result: Item) => {
                     return new ItemUpdated(result);
+                }
+            );
+        })
+    );
+
+    @Effect()
+    updateItemAddTag$ = this.actions$.pipe(
+        ofType(AddTagToItem.type),
+        mergeMap((it: AddTagToItem) => {
+            return this.itemService.updateItemAddTag(it.primary, it.secondary).then(
+                (result: Item) => {
+                    return new TagAddedToItem(result);
+                }
+            );
+        })
+    );
+
+    @Effect()
+    updateItemRemoveTag$ = this.actions$.pipe(
+        ofType(RemoveTagFromItem.type),
+        mergeMap((it: RemoveTagFromItem) => {
+            return this.itemService.updateItemAddTag(it.primary, it.secondary).then(
+                (result: Item) => {
+                    return new TagRemovedFromItem(result);
                 }
             );
         })

@@ -10,6 +10,15 @@
         </aye-simple-tag>
     </div>
     <div class="content">
-        <aye-item [item]="item" [tagOptions]="tags" *ngFor="let item of items"></aye-item>        
+        <aye-item 
+            [item]="item" 
+            [tagOptions]="tags" 
+            (done)="onDone($event)"
+            (update)="onUpdate($event)"
+            (delete)="onDelete($event)"
+            (tagAdded)="onTagAdded(item, $event)"
+            (tagRemoved)="onTagRemoved(item, $event)"
+            
+            *ngFor="let item of items"></aye-item>        
     </div>  
 </div>

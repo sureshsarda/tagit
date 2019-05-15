@@ -20,6 +20,10 @@ export class ItemComponent implements OnInit {
 
     @Output() delete: EventEmitter<Item> = new EventEmitter();
 
+    @Output() tagAdded: EventEmitter<Tag> = new EventEmitter();
+
+    @Output() tagRemoved: EventEmitter<Tag> = new EventEmitter();
+
     newDueDate: Date = undefined;
 
     constructor(
@@ -28,6 +32,7 @@ export class ItemComponent implements OnInit {
     ngOnInit() {
 
     }
+
     onEnter(value: string) {
         this.item.description = value.trim();
         this.update.emit(this.item);
@@ -52,12 +57,15 @@ export class ItemComponent implements OnInit {
 
     onTagRemoved(tag: Tag) {
         this.item.tags = this.item.tags.filter(it => it.id !== tag.id);
+        this.tagRemoved.emit(tag);
     }
 
 
     onTagDropped(t: Tag) {
-        console.log('Tag Dropeed');
-        this.item.tags.push(t);
+        if (this.item.tags.map(tag => tag.id).indexOf(t.id) <= -1) {
+            this.item.tags.push(t);
+            this.tagAdded.emit(t);
+        }
     }
 
     onDatePickerClosed() {
