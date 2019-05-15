@@ -42,26 +42,13 @@ export class ItemComponent implements OnInit {
         this.done.emit(this.item);
     }
 
-    onTagAdded(tag: Tag) {
-        if (tag.id) {
-            // tag is already present in database, only added to this task
-        } else {
-            // tag is not present in database, we have to create it as well
-        }
-
-        if (!this.item.tags) {
-            this.item.tags = [];
-        }
-        this.item.tags.push(tag);
-    }
-
     onTagRemoved(tag: Tag) {
         this.item.tags = this.item.tags.filter(it => it.id !== tag.id);
         this.tagRemoved.emit(tag);
     }
 
 
-    onTagDropped(t: Tag) {
+    onTagAdded(t: Tag) {
         if (this.item.tags.map(tag => tag.id).indexOf(t.id) <= -1) {
             this.item.tags.push(t);
             this.tagAdded.emit(t);

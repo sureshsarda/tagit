@@ -18,20 +18,20 @@
 
 <mat-menu #menu="matMenu">
 
-    <div class="tag-menu-item" mat-menu-item *ngFor="let o of options">
+    <div class="tag-menu-item" mat-menu-item *ngFor="let o of options" (click)="onMenuItemClicked(o)">
         <div [matMenuTriggerFor]="selectColor">
             <mat-icon [ngStyle]="{'color': o.color}">label</mat-icon>
         </div>
         <div>{{o.description}}</div>
     </div>
 
-    <div class="tag-menu-item" mat-menu-item>
+    <!-- <div class="tag-menu-item" mat-menu-item>
         <div>
             <mat-icon>label</mat-icon>
         </div>
         <div><input class="new-tag" [(ngModel)]="newTagName" (click)="$event.stopPropagation()"
                 (keyup.enter)="onNewTagAdded($event)" placeholder="enter new tag name" /></div>
-    </div>
+    </div> -->
 </mat-menu>
 
 <mat-menu #selectColor="matMenu">

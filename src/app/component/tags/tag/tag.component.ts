@@ -44,7 +44,9 @@ export class TagComponent implements OnInit {
     onNewTagAdded(event) {
         console.log(this.newTagName);
         this.newTagName = '';
-
     }
 
+    onMenuItemClicked(tag: Tag) {
+        this.added.emit(tag);
+    }
 }
