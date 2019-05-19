@@ -13,9 +13,11 @@ class ResultStub {
 })
 export class FirebaseService {
 
-    userId = '1';
-
     constructor(private http: HttpClient) {
+    }
+
+    private get userId(): string {
+        return localStorage.getItem('user_id');
     }
 
     private get url() {
@@ -32,15 +34,15 @@ export class FirebaseService {
 
     getItems(payload?: any): Promise<Item[]> {
         console.log('Fetching items in service...');
-        return this.makeRequest<Item[]>('http://127.0.0.1:8080/user/' + this.userId + '/task');
+        return this.makeRequest<Item[]>(this.url + '/task');
     }
 
     getTags(payload?: any): Promise<Tag[]> {
         console.log('Fetching items in service...');
-        return this.makeRequest<Tag[]>('http://127.0.0.1:8080/user/' + this.userId + '/tag').then(
+        return this.makeRequest<Tag[]>(this.url + '/tag').then(
             (tags: Tag[]) => {
-                tags.push(this.dailyAgendaTag());
-                tags.push(this.weeksViewTag());
+                // tags.push(this.dailyAgendaTag());
+                // tags.push(this.weeksViewTag());
                 return tags;
             }
         );

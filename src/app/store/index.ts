@@ -4,6 +4,12 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 import * as reducers from './reducers';
 import { ItemState, TagState, getTagState } from './selectors';
 
+export interface UserState {
+    user_id: string;
+    email: string;
+    name: string;
+    configuration?: any;
+}
 
 export interface AppRouterState {
     url: string;
@@ -15,6 +21,7 @@ export interface AppRouterState {
 export interface AppStore {
     items: ItemState;
     tags: TagState;
+    user?: UserState;
     routes?: fromRouter.RouterReducerState<AppRouterState>;
 }
 
@@ -28,7 +35,8 @@ export const initialState: AppStore = {
 export const applicationReducer: ActionReducerMap<AppStore> = {
     items: reducers.reducer,
     tags: reducers.tagReducer,
-    routes: fromRouter.routerReducer
+    routes: fromRouter.routerReducer,
+    user: reducers.userReducer
 };
 
 export const getRouterState = (state: AppStore) => state.routes;

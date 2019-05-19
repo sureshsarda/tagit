@@ -1,3 +1,4 @@
+import { UserState } from './../index';
 import { ItemState, TagState } from './../selectors';
 import { Item, Tag } from './../../model';
 import { FetchItemSuccess, ItemAdded, ItemArchived, ItemDeleted, ItemUpdated, TagAddedToItem, TagRemovedFromItem } from './../actions/item.action';
@@ -52,6 +53,10 @@ export function tagReducer(state: TagState, action: { type: string, payload: Tag
         default:
             return state;
     }
+}
+
+export function userReducer(state: UserState, action: { type: string, payload: any }): UserState {
+    return null;
 }
 
 

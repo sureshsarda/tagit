@@ -20,6 +20,30 @@ export class TagImpl implements Tag {
 
 }
 
+export interface LoginRequest {
+    username: string;
+    password: string;
+}
+
+export interface LoginSuccessful {
+    token: string;
+}
+
+export interface SignUpRequest {
+    username: string;
+    password: string;
+    name: string;
+}
+
+export interface SignUpSuccessful {
+    token: string;
+}
+
+
+export interface RequestFailed {
+    error: string;
+}
+
 export interface Item {
     id?: string;
     description: string;

@@ -1,17 +1,23 @@
 <div class="container">
     <div class="content">
+        <h2><span [routerLink]="['/login']" [ngClass]="{'active': section === 'login'}">Login</span> / <span
+                [routerLink]="['/signup']" [ngClass]="{'active': section === 'signup'}">Sign Up</span></h2>
         <form class="form">
-            <h2>Login / Sign Up</h2>
-            <mat-form-field class="full-width">
-                <input matInput placeholder="Email Address" name="email" [(ngModel)]="username">
+            <mat-form-field class="full-width" *ngIf="section === 'signup'">
+                <input matInput placeholder="Name" name="name" [(ngModel)]="name" autocomplete="nickname">
             </mat-form-field>
 
             <mat-form-field class="full-width">
-                <input matInput placeholder="Password" type="password" name="pass" [(ngModel)]="password">
+                <input matInput placeholder="Email Address" name="email" [(ngModel)]="username" autocomplete="email">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Password" type="password" name="pass" [(ngModel)]="password"
+                    autocomplete="current-password">
             </mat-form-field>
 
             <div *ngIf="showError" class="error">
-                Email address and password don't match
+                {{this.errorMessage}}
             </div>
             <div *ngIf="loading">
                 Please wait...

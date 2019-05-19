@@ -27,5 +27,14 @@
         .error {
             color: #FF5555
         }
+
+        h2 {
+            cursor: pointer;
+            outline: none;
+        }
+
+        .active {
+            color: #3f51b5;
+        }
     }
 }

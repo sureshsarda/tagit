@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +39,8 @@ import { TodoModule } from './todo/todo.module';
         })
     ],
     providers: [
-        { provide: RouterStateSerializer, useClass: CustomSerializer }
+        { provide: RouterStateSerializer, useClass: CustomSerializer },
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })
