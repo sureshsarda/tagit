@@ -18,8 +18,7 @@ export class AppComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.store.dispatch(new FetchItem());
-        this.store.dispatch(new FetchTag());
+        
     }
 
 

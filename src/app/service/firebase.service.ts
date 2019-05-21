@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'firebase/firestore';
 import { Item, SuperTag, Tag } from './../model';
+import { environment } from 'src/environments/environment';
 
 
 class ResultStub {
@@ -21,7 +22,7 @@ export class FirebaseService {
     }
 
     private get url() {
-        return 'http://127.0.0.1:8080/user/' + this.userId;
+        return environment.backendURL + '/user/' + this.userId;
     }
 
     private makeRequest<T>(url): Promise<T> {

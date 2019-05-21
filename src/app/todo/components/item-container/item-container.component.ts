@@ -1,3 +1,5 @@
+import { FetchTag } from './../../../store/actions/tag.action';
+import { FetchItem } from './../../../store/actions/item.action';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -26,6 +28,8 @@ export class ItemContainerComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.store.dispatch(new FetchItem());
+        this.store.dispatch(new FetchTag());
         this.resetNewItem();
 
         this.store.select(selectors.favoriteTags).subscribe(it => {
