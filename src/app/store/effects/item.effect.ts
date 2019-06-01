@@ -65,7 +65,7 @@ export class ItemEffects {
     updateItemRemoveTag$ = this.actions$.pipe(
         ofType(RemoveTagFromItem.type),
         mergeMap((it: RemoveTagFromItem) => {
-            return this.itemService.updateItemAddTag(it.primary, it.secondary).then(
+            return this.itemService.updateItemRemoveTag(it.primary, it.secondary).then(
                 (result: Item) => {
                     return new TagRemovedFromItem(result);
                 }

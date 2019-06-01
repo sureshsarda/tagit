@@ -86,12 +86,16 @@ input {
 }
 
 h4 {
+
+    margin-top: 20px;
+    line-height: 1;
+}
+
+.super-title {
     color: rgb(21, 101, 192);
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 1px;
-    margin-top: 20px;
-    line-height: 1;
 }
 
 .gray-button {

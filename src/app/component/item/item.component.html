@@ -1,13 +1,17 @@
 <div ayeTagDropArea (dropped)="onTagAdded($event)" [dropActiveClass]="'drop-active'">
-    <div class="container">
+    <div class="container" >
         <mat-icon class="round-icon medium" (click)="onCheckClick()">check</mat-icon>
         <div class="full-width">
-            <div class="content" data-id="{{item.id}}">
+            <div class="content" data-id="{{item.id}}" (click)="hideSecondaryBar = !hideSecondaryBar">
                 <input #name (keyup.enter)="onEnter(name.value)" value="{{item.description}}">
             </div>
+
             <div class="bottom-bar" *ngIf="!hideSecondaryBar">
-                <aye-tag [tags]="item.tags" [options]="tagOptions" (added)="onTagAdded($event)"
-                    (removed)="onTagRemoved($event)"></aye-tag>
+                <div class="tags">
+                    <aye-tag [tags]="item.tags" [options]="tagOptions" (added)="onTagAdded($event)"
+                        (removed)="onTagRemoved($event)"></aye-tag>
+                </div>
+
                 <div class="action">
                     <div *ngIf="item.duedate">
                         <h4>{{item.duedate | date:'MMM d'}}</h4>
@@ -24,6 +28,7 @@
                         <mat-icon>delete</mat-icon>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

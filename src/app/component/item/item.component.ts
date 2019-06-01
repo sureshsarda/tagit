@@ -4,7 +4,7 @@ import { Item, Tag } from 'src/app/model';
 @Component({
     selector: 'aye-item',
     templateUrl: './item.component.html',
-    styleUrls: ['./item.component.css']
+    styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
 
@@ -12,7 +12,11 @@ export class ItemComponent implements OnInit {
 
     @Input() tagOptions: Tag[];
 
-    @Input() hideSecondaryBar: false;
+    // hideSecondaryBar = true;
+
+    @Input() hideSecondaryBar = true;
+
+    @Input() expand = true;
 
     @Output() update: EventEmitter<Item> = new EventEmitter();
 

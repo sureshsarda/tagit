@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Tag } from 'src/app/model';
 
 @Component({
@@ -8,9 +8,13 @@ import { Tag } from 'src/app/model';
 })
 export class ChippedTagComponent implements OnInit {
 
+    @Input() size: 'small' | 'large' = 'small';
+
     @Input() tag: Tag;
 
     @Input() showCloseButton: true;
+
+    @Output() closeButton: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 

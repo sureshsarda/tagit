@@ -1,16 +1,23 @@
 <div class="container">
     <div>
-        <mat-chip-list>
-            <mat-chip [matMenuTriggerFor]="selectColor" class="tag-chip" *ngFor="let t of tags"
-                [ngStyle]="{backgroundColor: t.color}" title={{t.description}}>
+        <mat-chip-list *ngIf="!expanded">
+            <mat-chip class="tag-chip" *ngFor="let t of tags" [ngStyle]="{backgroundColor: t.color}"
+                title={{t.description}}>
             </mat-chip>
         </mat-chip-list>
+
+        <div class="row" *ngIf="expanded">
+            <aye-chipped-tag class="tag" *ngFor="let t of tags" 
+            [tag]=t title={{t.description}} 
+            (closeButton)="onTagRemoved(t)">
+            </aye-chipped-tag>
+        </div>
+
+
     </div>
     <div class="add-tags" [matMenuTriggerFor]="menu">
         <mat-icon class="round-icon small noborder">add</mat-icon>
-        <div>
-            <h4>Add</h4>
-        </div>
+        <div class="super-title center">Add</div>
     </div>
 </div>
 
@@ -19,7 +26,7 @@
 <mat-menu #menu="matMenu">
 
     <div class="tag-menu-item" mat-menu-item *ngFor="let o of options" (click)="onMenuItemClicked(o)">
-        <div [matMenuTriggerFor]="selectColor">
+        <div>
             <mat-icon [ngStyle]="{'color': o.color}">label</mat-icon>
         </div>
         <div>{{o.description}}</div>
@@ -33,24 +40,3 @@
                 (keyup.enter)="onNewTagAdded($event)" placeholder="enter new tag name" /></div>
     </div> -->
 </mat-menu>
-
-<mat-menu #selectColor="matMenu">
-    <div>
-        <mat-icon [ngStyle]="{'color': c}" *ngFor="let c of colors">lens</mat-icon>
-    </div>
-</mat-menu>
-<!--
-    Autocomplete Code
-
-<form>
-            <input type="text" #newTagElement [formControl]="myControl" [matAutocomplete]="auto"
-                (keyup.enter)="onNewTagAdded($event)">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-                    (click)="onNewTagAdded($event)">
-                    {{option.description}}
-                </mat-option>
-            </mat-autocomplete>
-        </form>
-
--->

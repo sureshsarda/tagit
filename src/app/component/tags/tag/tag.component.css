@@ -4,13 +4,13 @@
     align-items: center;
 
     /* padding-top: 12px; */
-    height: 18px;
+    /* height: 18px; */
     margin-top: 5px;
 
 }
 
-.container:hover > .add-tags {
-    display: flex;
+.container:hover>.add-tags {
+    display: flex !important;
     justify-content: center;
     align-items: center;
 }
@@ -37,4 +37,9 @@
 input.new-tag {
     width: 100%;
     border: 0px;
+}
+
+.tag {
+    max-width: 1000px;
+    transition: max-width 1s ease-in
 }

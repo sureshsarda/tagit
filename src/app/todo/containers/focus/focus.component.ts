@@ -46,11 +46,12 @@ export class FocusComponent implements OnInit {
     }
 
     onTagRemoved(item: Item, tag: Tag) {
-        this.store.dispatch(new AddTagToItem(item, tag));
+        console.log('Tag Removed.');
+        this.store.dispatch(new RemoveTagFromItem(item, tag));
     }
 
     onTagAdded(item: Item, tag: Tag) {
-        this.store.dispatch(new RemoveTagFromItem(item, tag));
+        this.store.dispatch(new AddTagToItem(item, tag));
     }
 
 }

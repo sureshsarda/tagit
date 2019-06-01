@@ -17,36 +17,25 @@ export class TagComponent implements OnInit {
 
     @Input() options: Tag[];
 
+    @Input() expanded = true;
+
     @Output() added: EventEmitter<Tag> = new EventEmitter();
 
     @Output() removed: EventEmitter<Tag> = new EventEmitter();
 
-    newTagName: string;
-
-    colors = COLORS;
-
-    myControl = new FormControl();
-    filteredOptions: Observable<Tag[]>;
+    _deleted = new Set();
 
     constructor() { }
 
     ngOnInit() { }
 
-    private _filter(value: string): Tag[] {
-        const filterValue = value.toLowerCase();
-        return this.options.filter(option => option.description.toLowerCase().includes(filterValue));
-    }
-
-    displayFn(t?: Tag) {
-        return t ? t.description : undefined;
-    }
-
-    onNewTagAdded(event) {
-        console.log(this.newTagName);
-        this.newTagName = '';
-    }
 
     onMenuItemClicked(tag: Tag) {
         this.added.emit(tag);
+    }
+
+    onTagRemoved(tag: Tag) {
+        this._deleted.add(tag.id);
+        this.removed.emit(tag);
     }
 }
