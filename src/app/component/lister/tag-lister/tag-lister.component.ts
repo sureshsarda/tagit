@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Tag } from 'src/app/model';
 
 @Component({
@@ -11,6 +11,8 @@ export class TagListerComponent implements OnInit {
     @Input() tags: Tag[];
 
     @Input() draggable = false;
+
+    @Output() tagClicked: EventEmitter<Tag> = new EventEmitter();
 
     constructor() { }
 

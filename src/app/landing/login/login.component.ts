@@ -24,6 +24,11 @@ export class LoginComponent implements OnInit {
         private authService: AuthenticationService) { }
 
     ngOnInit() {
+        // if a session is already present, then redirect to dashboard.
+        if (this.authService.isLoggedIn()) {
+            this.router.navigate(['/app']);
+        }
+
         this.activatedRoute.url.subscribe(
             (segments: UrlSegment[]) => {
                 if (segments && segments.length > 0) {

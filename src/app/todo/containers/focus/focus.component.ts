@@ -1,4 +1,4 @@
-import { ArchiveItem, AddTagToItem, RemoveTagFromItem } from './../../../store/actions/item.action';
+import { ArchiveItem, AddTagToItem, RemoveTagFromItem, AddItem } from './../../../store/actions/item.action';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Item, Tag } from 'src/app/model';
@@ -6,6 +6,7 @@ import { allTags } from 'src/app/store/selectors';
 import { AppStore } from './../../../store/index';
 import { getActiveItems } from './../../../store/selectors/item.selector';
 import { UpdateItem, DeleteItem } from 'src/app/store/actions';
+import { itemAscByDueDate } from 'src/app/model/models';
 
 
 @Component({
@@ -33,6 +34,10 @@ export class FocusComponent implements OnInit {
         });
     }
 
+    onNewTask(desc: string) {
+        this.store.dispatch(new AddItem({ description: desc }));
+    }
+
     onDone(item: Item) {
         this.store.dispatch(new ArchiveItem(item));
     }
@@ -52,6 +57,14 @@ export class FocusComponent implements OnInit {
 
     onTagAdded(item: Item, tag: Tag) {
         this.store.dispatch(new AddTagToItem(item, tag));
+    }
+
+    onOrderByDueDate() {
+        // sort only items that have due date
+        const hasDueDate: Item[] = this.items.filter(it => it.duedate);
+        hasDueDate.sort((a, b) => itemAscByDueDate(a, b));
+        const doesNotHaveDueDate: Item[] = this.items.filter(it => !it.duedate);
+        this.items = hasDueDate.concat(doesNotHaveDueDate);
     }
 
 }

@@ -1,6 +1,12 @@
-<div class="container">
-    <div class="left">
-        <aye-simple-tag 
+<div class="container flex-column">
+    <div class="action-bar flex-row">
+        <mat-icon class="round-icon noborder" title="Order by Due Date" (click)="onOrderByDueDate()">sort</mat-icon>
+        <mat-icon class="round-icon noborder" title="Expand All">add</mat-icon>
+        <mat-icon class="round-icon noborder" title="Collapse All">remove</mat-icon>
+    </div>
+    <div class="content flex-row">
+        <div class="left">
+            <aye-simple-tag 
             *ngFor="let tag of tags" 
             [tag]="tag" 
             [showPrimaryIcon]="true" 
@@ -8,9 +14,9 @@
             [drag]="true"
             >
         </aye-simple-tag>
-    </div>
-    <div class="content">
-        <aye-item 
+        </div>
+        <div class="tasks">
+            <aye-item 
             [item]="item" 
             [tagOptions]="tags" 
             (done)="onDone($event)"
@@ -19,6 +25,9 @@
             (tagAdded)="onTagAdded(item, $event)"
             (tagRemoved)="onTagRemoved(item, $event)"
             
-            *ngFor="let item of items"></aye-item>        
-    </div>  
+            *ngFor="let item of items"></aye-item>
+            
+            <aye-item-create (newTask)="onNewTask($event)"></aye-item-create>
+        </div>  
+    </div>
 </div>

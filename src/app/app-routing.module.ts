@@ -10,12 +10,9 @@ const routes: Routes = [
     { path: '', component: MainComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: LoginComponent },
-    {
-        path: 'app', component: ItemContainerComponent, canActivate: [AuthGuard], children: [
-            { path: 'tags/:id/view', component: ItemContainerComponent },
-            { path: 'tags/manage', component: TagManagerComponent }
-        ]
-    },
+    { path: 'app', component: ItemContainerComponent, canLoad: [AuthGuard], pathMatch: 'full' },
+    { path: 'app/tags/:id/view', component: ItemContainerComponent, canLoad: [AuthGuard] },
+    { path: 'app/tags/manage', component: TagManagerComponent, canLoad: [AuthGuard] }
 ];
 
 @NgModule({

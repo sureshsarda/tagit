@@ -1,0 +1,6 @@
+<div class="container" *ngIf="initsRemaining > 0">
+    <div id="bar"></div>
+</div>
+<div class="container" *ngIf="initsRemaining <= 0">
+    <router-outlet class="container"></router-outlet>
+</div>

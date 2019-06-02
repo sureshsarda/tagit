@@ -116,27 +116,44 @@ export class FirebaseService {
     }
 
     addItem(item: Item): Promise<Item> {
-        return this.http.post(this.url + '/task', {
+        return this._add<Item>('/task', {
             description: item.description,
-        }).toPromise().then(
-            (result: ResultStub) => {
-                return result.data as Item;
-            }
-        );
+        });
+    }
+
+    addTag(tag: Tag): Promise<Tag> {
+        return this._add<Tag>('/tag', {
+            description: tag.description,
+            color: tag.color
+        });
+    }
+
+    updateTag(param: Tag): Promise<Tag> {
+        const updatable = ['description', 'color'];
+        return this._update<Tag>(param, '/tag/', updatable);
     }
 
     updateItem(param: Item): Promise<Item> {
         const updatable = ['duedate', 'completed_at', 'deleted_at', 'description'];
+        return this._update<Item>(param, '/task/', updatable);
+    }
+
+    private _add<T>(url: '/tag' | '/task', payload: any): Promise<T> {
+        return this.http.post(this.url + url, payload).toPromise().then(
+            (it: ResultStub) => it.data as any as T
+        );
+    }
+
+
+    private _update<T>(param: Tag | Item, url: '/tag/' | '/task/', updatable: string[]): Promise<T> {
         const payload = {};
-        Object.keys(param).forEach(k => {
-            if (updatable.indexOf(k) > -1) {
-                payload[k] = param[k];
-            }
+        Object.entries(param).filter(([k, v]) => updatable.indexOf(k) > -1).forEach(([k, v]) => {
+            payload[k] = v;
         });
 
-        return this.http.patch(this.url + '/task/' + param.id, payload).toPromise()
+        return this.http.patch(this.url + url + param.id, payload).toPromise()
             .then((result: ResultStub) => {
-                return result.data as Item;
+                return result.data as any as T;
             });
     }
 

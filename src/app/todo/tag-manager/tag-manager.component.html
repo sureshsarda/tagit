@@ -4,21 +4,21 @@
     </div>
     <div class="container">
         <div class="side-bar">
-            <div class="typo subheader">
+            <!-- <div class="typo subheader">
                 Super Tags
             </div>
-            <aye-tag-lister></aye-tag-lister>
+            <aye-tag-lister></aye-tag-lister> -->
             <div class="typo subheader">
-                Regular Tags
+                Tags
             </div>
             <div class="tag-lister">
-                <aye-tag-lister [draggable]="true" [tags]="tags"></aye-tag-lister>
+                <aye-tag-lister [draggable]="true" [tags]="tags" (tagClicked)="selectedTag = $event"></aye-tag-lister>
             </div>
         </div>
 
         <div class="content">
             <div class="blade">
-                <aye-tag-editor [tag]="tags[0]"></aye-tag-editor>
+                <aye-tag-editor [tag]="selectedTag" (save)="onTagUpdated($event)" (new)="onNewTag()"></aye-tag-editor>
             </div>
         </div>
     </div>

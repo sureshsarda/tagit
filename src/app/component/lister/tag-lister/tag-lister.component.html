@@ -1,5 +1,6 @@
 <div class="container">
-    <!-- <div *ngFor="let t of tags" ayeDraggableTag [payload]="t">
+    <div class="flex-row" *ngFor="let t of tags" ayeDraggableTag [payload]="t" (click)="tagClicked.emit(t)">
+        <mat-icon [ngStyle]="{color: t.color}" class="round-icon small noborder">lens</mat-icon>
         {{t.description}}
-    </div> -->
+    </div>
 </div>

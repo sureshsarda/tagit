@@ -13,6 +13,8 @@ export class TagEditorComponent implements OnInit {
 
     @Output() save: EventEmitter<Tag> = new EventEmitter();
 
+    @Output() new: EventEmitter<Tag> = new EventEmitter();
+
     colors = COLORS;
 
     droppedTags: Tag[] = [];
@@ -25,6 +27,20 @@ export class TagEditorComponent implements OnInit {
     onTagDropped(t: Tag) {
         console.log(t);
         this.droppedTags.push(t);
+    }
+
+    onTagNameUpdated(newName: string) {
+        if (this.tag.description !== newName.trim()) {
+            this.tag.description = newName.trim();
+            this.save.emit(this.tag);
+        }
+    }
+
+    onColorChange(c: string) {
+        if (this.tag.color !== c) {
+            this.tag.color = c;
+            this.save.emit(this.tag);
+        }
     }
 
 

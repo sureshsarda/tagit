@@ -7,7 +7,15 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthenticationService {
 
-    backendURL = environment.backendURL;
+    // TODO Refactor, this should be part of a Session class
+    readonly SESSION_MAPPING = {
+        token: 'token',
+        name: 'name',
+        email: 'email',
+        id: 'user_id'
+    };
+
+    readonly backendURL = environment.backendURL;
 
     constructor(private http: HttpClient) { }
 
@@ -49,9 +57,11 @@ export class AuthenticationService {
     }
 
     createSessionInLocalStorage(data: any) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('name', data.name);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('user_id', data.id);
+        Object.entries(this.SESSION_MAPPING).forEach(([key, value]) => localStorage.setItem(value, data[key]));
     }
+
+    isLoggedIn(): boolean {
+        return Object.values(this.SESSION_MAPPING).map(it => Boolean(localStorage.getItem(it))).every(it => it);
+    }
+
 }

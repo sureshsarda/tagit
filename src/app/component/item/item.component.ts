@@ -12,8 +12,6 @@ export class ItemComponent implements OnInit {
 
     @Input() tagOptions: Tag[];
 
-    // hideSecondaryBar = true;
-
     @Input() hideSecondaryBar = true;
 
     @Input() expand = true;

@@ -26,6 +26,7 @@ import { NavigatorComponent } from './navigator/navigator.component';
 import { VerticalTagListerComponent } from './tags/lister/vertical-tag-lister/vertical-tag-lister.component';
 import { TagChipComponent } from './tags/single/tag-chip/tag-chip.component';
 import { SimpleTagComponent } from './tags/single/simple-tag/simple-tag.component';
+import { ItemCreateComponent } from './item-create/item-create.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { SimpleTagComponent } from './tags/single/simple-tag/simple-tag.componen
         VerticalTagListerComponent,
         TagChipComponent,
         SimpleTagComponent,
+        ItemCreateComponent
         // DraggableItemDirective,
     ],
     exports: [
@@ -54,6 +56,7 @@ import { SimpleTagComponent } from './tags/single/simple-tag/simple-tag.componen
         NavigatorComponent,
         VerticalTagListerComponent,
         SimpleTagComponent,
+        ItemCreateComponent
         // DraggableItemDirective
     ],
     imports: [

@@ -60,6 +60,15 @@ export interface Item {
     tags?: Tag[];
 }
 
+export function itemAscByDueDate(a: Item, b: Item): number {
+
+    const aDue = new Date(a.duedate);
+    const bDue = new Date(b.duedate);
+
+    return aDue.toISOString().localeCompare(bDue.toISOString());
+}
+
+
 export interface ItemCollection {
     items?: Item[];
 }
