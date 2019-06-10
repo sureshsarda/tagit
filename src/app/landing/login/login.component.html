@@ -23,6 +23,10 @@
                 Please wait...
             </div>
 
+            <div *ngIf="section === 'login'" class="signup-here">
+                Don't have an account? <a [routerLink]="['/signup']">SignUp here</a>.
+            </div>
+
             <div class="full-width">
                 <button mat-raised-button value="Get Productive" color="primary" (click)="onLoginClick()">Get
                     Productive</button>

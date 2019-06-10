@@ -3,8 +3,18 @@
         dexterous.me
     </div>
 
-    <div class="action">
-        <mat-icon class="action-button gray-button" title="Tag Manager" [routerLink]="['/app/tags/manage']">style</mat-icon>
-        <mat-icon class="action-button gray-button" title="Log Out" (click)="onLogout()">lens</mat-icon>
+    <div class="action flex-row">
+        <div class="menu action-button gray-button center" [routerLink]="['/app/tags/manage']">
+            <mat-icon>low_priority</mat-icon>
+            <div class="label">Planning Mode</div>
+        </div>
+        <div class="menu action-button gray-button center" [routerLink]="['/app/tags/manage']">
+            <mat-icon>style</mat-icon>
+            <div class="label">Tags</div>
+        </div>
+        <div class="menu action-button gray-button center" (click)="onLogout()">
+            <mat-icon>lens</mat-icon>
+            <div class="label">Logout</div>
+        </div>
     </div>
 </div>
