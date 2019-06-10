@@ -25,7 +25,17 @@ export const getActiveItems = createSelector(
         }
         return [];
     }
-)
+);
+
+export const getAllItems = createSelector(
+    getItemsState,
+    (state: ItemState) => {
+        if (state && state.entities) {
+            return Object.values(state.entities);
+        }
+        return [];
+    }
+);
 
 export const getItemsForTag = createSelector(
     getItemsState,

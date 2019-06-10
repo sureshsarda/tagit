@@ -10,6 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SuperTagComponent } from './super-tag/super-tag.component';
+import { OrgComponent } from './containers/org/org.component';
+
+
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -18,13 +22,14 @@ import { SuperTagComponent } from './super-tag/super-tag.component';
         TagManagerComponent,
         HeaderComponent,
         SuperTagComponent,
-        FocusComponent
+        FocusComponent,
+        OrgComponent
     ],
     imports: [
         AyeComponentsModule,
         CommonModule,
         MatIconModule,
-
+        MatTableModule,
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -32,6 +37,7 @@ import { SuperTagComponent } from './super-tag/super-tag.component';
     ],
     exports: [
         ItemContainerComponent,
+        OrgComponent
     ]
 })
 export class TodoModule { }
